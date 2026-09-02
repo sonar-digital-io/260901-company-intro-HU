@@ -1,0 +1,3376 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sonar Digital — Bemutatkozás és szolgáltatáscsomagok</title>
+<meta name="description" content="SELL, BUILD, OPERATE, RETHINK — üzletszerzés, termékesítés, üzemeltetés és teljes újratervezés egy szolgáltatásként. A Sonar Digital bemutatkozása és esettanulmányai.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sonar Digital — Bemutatkozás és szolgáltatáscsomagok">
+<meta property="og:description" content="SELL, BUILD, OPERATE, RETHINK — üzletszerzés, termékesítés, üzemeltetés és teljes újratervezés egy szolgáltatásként.">
+<meta property="og:image" content="og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #030E23;
+    --bg-2: #0A1730;
+    --bg-card: rgba(255, 255, 255, 0.035);
+    --ink: #F4F7FB;
+    --ink-muted: #B8C2D6;
+    --ink-dim: #6E7A93;
+    --blue: #2058F8;
+    --blue-deep: #1838A8;
+    --blue-bright: #4878FF;
+    --blue-soft: rgba(32, 88, 248, 0.18);
+    --mint: #50F8D0;
+    --mint-deep: #02201A;
+    --rule: rgba(244, 247, 251, 0.08);
+    --rule-strong: rgba(244, 247, 251, 0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100vh;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 100% 0%, rgba(32, 88, 248, 0.10), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 0% 100%, rgba(80, 248, 208, 0.04), transparent 60%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .deck { position: fixed; inset: 0; z-index: 2; }
+
+  /* === SCROLLBAR — Sonar custom === */
+  *::-webkit-scrollbar { width: 10px; height: 10px; }
+  *::-webkit-scrollbar-track { background: transparent; }
+  *::-webkit-scrollbar-thumb {
+    background: rgba(244, 247, 251, 0.14);
+    border-radius: 100px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: rgba(80, 248, 208, 0.5);
+    background-clip: padding-box;
+  }
+  *::-webkit-scrollbar-corner { background: transparent; }
+  * { scrollbar-width: thin; scrollbar-color: rgba(244, 247, 251, 0.14) transparent; }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    padding: 7vh 6vw 8vh;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+    overflow: hidden;
+  }
+
+  .slide.active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease, visibility 0s linear 0s;
+  }
+
+  .slide.active .reveal {
+    animation: reveal 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+  }
+
+  .slide.active .reveal-1 { animation-delay: 0.05s; }
+  .slide.active .reveal-2 { animation-delay: 0.13s; }
+  .slide.active .reveal-3 { animation-delay: 0.21s; }
+  .slide.active .reveal-4 { animation-delay: 0.29s; }
+  .slide.active .reveal-5 { animation-delay: 0.37s; }
+  .slide.active .reveal-6 { animation-delay: 0.45s; }
+  .slide.active .reveal-7 { animation-delay: 0.53s; }
+
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* === LOGO === */
+  .logo {
+    position: absolute;
+    top: 4vh;
+    left: 6vw;
+    width: 90px;
+    z-index: 100;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .logo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: opacity 0.2s ease;
+  }
+  .logo:hover img { opacity: 0.75; }
+
+  /* === TYPOGRAPHY === */
+  .display { font-weight: 400; line-height: 1.08; letter-spacing: -0.018em; }
+  .display-xl { font-size: clamp(2.75rem, 5vw, 4.75rem); }
+  .display-l  { font-size: clamp(2rem, 3.4vw, 3.25rem); }
+  .display-m  { font-size: clamp(1.5rem, 2.4vw, 2.25rem); }
+  .display-s  { font-size: clamp(1.15rem, 1.55vw, 1.5rem); }
+
+  .body { font-size: clamp(1rem, 1.1vw, 1.15rem); line-height: 1.6; color: var(--ink-muted); }
+  .body-l { font-size: clamp(1.1rem, 1.3vw, 1.3rem); line-height: 1.55; color: var(--ink-muted); }
+  .muted { color: var(--ink-muted); }
+  .dim { color: var(--ink-dim); }
+
+  /* === PILLS === */
+  .pill {
+    display: inline-block;
+    padding: 0.42em 0.95em;
+    background: var(--mint);
+    color: var(--mint-deep);
+    border-radius: 100px;
+    font-size: 0.74rem;
+    font-weight: 500;
+    line-height: 1;
+  }
+  .pill-blue {
+    display: inline-block;
+    padding: 0.42em 0.95em;
+    background: var(--blue);
+    color: var(--ink);
+    border-radius: 100px;
+    font-size: 0.74rem;
+    font-weight: 500;
+    line-height: 1;
+  }
+  .pill-outline {
+    display: inline-block;
+    padding: 0.45em 1em;
+    border: 1px solid var(--rule-strong);
+    color: var(--ink-muted);
+    border-radius: 100px;
+    font-size: 0.74rem;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .slide-tag {
+    position: absolute;
+    top: 4vh;
+    right: 6vw;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--ink-dim);
+    letter-spacing: 0.05em;
+    z-index: 5;
+  }
+
+  /* === IMAGE BAND (clean cutoff, no gradient) === */
+  .image-band-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 130px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+    border-top: 1px solid var(--rule);
+  }
+  .image-band-bottom img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    display: block;
+  }
+
+  /* === COVER === */
+  .cover { padding: 7vh 6vw 0; }
+  .cover-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    align-items: center;
+    gap: 4vw;
+  }
+  .cover-text { padding-top: 2vh; }
+  .cover-title-block { display: flex; flex-direction: column; gap: 1.1rem; }
+  .cover-year {
+    margin-top: 2.5rem;
+    font-size: 0.85rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.08em;
+  }
+  .cover-image {
+    position: relative;
+    height: 78vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* Egyetlen, teljes borítókép (nem a darabolt kompozíció) */
+  .cover-image > img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  /* === TOC (slide 2) === */
+  .toc-header { margin-bottom: 4vh; display: flex; align-items: baseline; gap: 1.25rem; }
+  .toc-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 1100px;
+    align-self: stretch;
+  }
+  .toc-row {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    align-items: center;
+    column-gap: 1.5rem;
+    padding: 0.8rem 1.5rem;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    color: var(--ink);
+    font-family: inherit;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+  }
+  .toc-row:hover {
+    border-color: var(--mint);
+    background: rgba(80, 248, 208, 0.04);
+    transform: translateX(4px);
+  }
+  .toc-num {
+    font-size: 0.82rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.05em;
+    font-variant-numeric: tabular-nums;
+  }
+  .toc-text { display: flex; flex-direction: column; gap: 0.25rem; }
+  .toc-title {
+    font-size: 1.2rem;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    font-weight: 400;
+  }
+  .toc-sub {
+    font-size: 1rem;
+    color: var(--ink-muted);
+    line-height: 1.4;
+  }
+  .toc-arrow {
+    color: var(--ink-dim);
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .toc-arrow svg {
+    width: 18px;
+    height: 18px;
+  }
+  .toc-row:hover .toc-arrow {
+    color: var(--mint);
+    transform: translateX(4px);
+  }
+
+  /* === INTRO PARAGRAPH SLIDE === */
+  .intro-slide {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2.5rem;
+    max-width: 1100px;
+  }
+  .intro-paragraph {
+    font-size: clamp(1.5rem, 2.2vw, 2.05rem);
+    font-weight: 400;
+    line-height: 1.32;
+    color: var(--ink);
+    letter-spacing: -0.012em;
+    max-width: 26ch;
+  }
+  .role-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    max-width: 880px;
+  }
+  .role-pill {
+    display: inline-block;
+    padding: 0.42em 0.95em;
+    background: var(--blue);
+    color: var(--ink);
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    line-height: 1;
+  }
+  /* Sonar circle composition for intro slide top-right */
+  .intro-deco {
+    position: absolute;
+    top: -6vh;
+    right: -3vw;
+    width: 30vw;
+    height: 30vw;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.55;
+  }
+  .intro-deco img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-bottom-left-radius: 100%;
+    mask-image: radial-gradient(circle at 30% 70%, black 55%, transparent 75%);
+    -webkit-mask-image: radial-gradient(circle at 30% 70%, black 55%, transparent 75%);
+  }
+
+  /* === PRINCIPLES (slide 3): 2-col, big labels left + body right, 3 rows === */
+  .principles-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 0.95fr 1.4fr;
+    column-gap: 6vw;
+    row-gap: 3.5vh;
+    align-content: center;
+    align-items: start;
+  }
+  .principle-label {
+    font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.018em;
+    color: var(--ink);
+  }
+  .principle-body {
+    color: var(--ink-muted);
+    font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+    line-height: 1.65;
+    max-width: 60ch;
+  }
+  .principle-body p + p { margin-top: 0.85rem; }
+
+  /* === SERVICES (slide 4): 4-card grid with images === */
+  .services-header { margin-bottom: 4vh; }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    flex: 1;
+    align-items: stretch;
+  }
+  .service-card {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+    position: relative;
+    cursor: pointer;
+    font-family: inherit;
+    color: inherit;
+    text-align: left;
+    padding: 0;
+  }
+  .service-card:hover {
+    border-color: var(--mint);
+    transform: translateY(-2px);
+  }
+  .service-card-jump {
+    position: absolute;
+    bottom: 1.1rem;
+    right: 1.1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 0.95rem;
+    background: var(--mint);
+    color: var(--mint-deep);
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    line-height: 1;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+    font-family: inherit;
+  }
+  .service-card:hover .service-card-jump {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .service-card-jump svg {
+    width: 12px;
+    height: 12px;
+  }
+  .service-card-image {
+    height: 60%;
+    min-height: 280px;
+    width: 100%;
+    overflow: hidden;
+    background: var(--bg-2);
+  }
+  .service-card-image img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+  .service-card-text {
+    padding: 1.4rem 1.5rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .service-card-title {
+    font-size: 1.35rem;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .service-card-sub {
+    color: var(--ink-muted);
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  /* Cross-cutting services band (slide 5): MVP + Pivot — no image, compact */
+  .services-aux {
+    margin-top: 1.6rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .services-aux-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--ink-dim);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .services-aux-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  .aux-card {
+    flex-direction: row;
+    align-items: center;
+    border-left: 2px solid var(--mint);
+    padding: 1.35rem 1.6rem;
+    min-height: 0;
+  }
+  .aux-card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding-right: 5.5rem;
+  }
+  .aux-card-title {
+    font-size: 1.3rem;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+  .aux-card-sub {
+    color: var(--ink-muted);
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  /* === LAB K/M/E (slides 5–8): step-style header, no hours === */
+  .lab-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin-bottom: 4vh;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .lab-title {
+    font-size: clamp(2rem, 3.4vw, 3.25rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.018em;
+  }
+  .lab-badges {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .lab-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3vw;
+    align-content: start;
+    margin-bottom: 130px;
+  }
+  .lab-col h3 {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--mint);
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+  }
+  .lab-col p {
+    color: var(--ink-muted);
+    font-size: 0.97rem;
+    line-height: 1.6;
+  }
+  .lab-col p + p { margin-top: 0.85rem; }
+  .lab-col.solution {
+    padding-left: 1.25rem;
+    margin-left: calc(-1.25rem - 2px);
+    border-left: 2px solid var(--blue);
+  }
+  /* Display lab title as wide cap above pill */
+  .lab-title-display {
+    font-size: clamp(2.5rem, 4vw, 3.6rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-top: 0.4rem;
+  }
+
+  /* === ARS POETICA (slide 9): central flask + 3 floating boxes === */
+  .ars-stage {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ars-stage svg.flask {
+    width: clamp(280px, 26vw, 420px);
+    height: auto;
+  }
+  .ars-tag {
+    position: absolute;
+    width: clamp(150px, 13vw, 190px);
+    padding: 1.4rem 1rem;
+    border: 1px solid var(--mint);
+    border-radius: 14px;
+    background: rgba(3, 14, 35, 0.6);
+    color: var(--ink);
+    font-size: clamp(0.85rem, 1vw, 1rem);
+    text-align: center;
+    font-weight: 400;
+    line-height: 1.25;
+  }
+  .ars-flask-wrap {
+    position: relative;
+    width: min(92%, calc(78vh * 1.33333));
+    aspect-ratio: 1920 / 1440;
+  }
+  .ars-flask-img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  /* boxes anchored to the dashed-line endpoints in the flask image */
+  .ars-tag.t-uzleti { left: 24.0%; top: 47.7%; transform: translate(calc(-100% - 6px), -50%); }
+  .ars-tag.t-kivit  { left: 63.7%; top: 12.4%; transform: translate(6px, -50%); }
+  .ars-tag.t-ember  { left: 71.4%; top: 52.0%; transform: translate(6px, -50%); }
+  .slide.active .ars-tag { animation: arsfade 0.6s ease backwards; }
+  .slide.active .ars-tag.t-uzleti { animation-delay: 0.30s; }
+  .slide.active .ars-tag.t-kivit  { animation-delay: 0.40s; }
+  .slide.active .ars-tag.t-ember  { animation-delay: 0.50s; }
+  @keyframes arsfade { from { opacity: 0; } to { opacity: 1; } }
+  .ars-stage svg.connectors {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  /* === COMPONENT SLIDES (slides 10–12): summary card + 3 cols === */
+  .comp-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 0.9fr 1fr 1fr 1fr;
+    column-gap: 2.5vw;
+    align-items: start;
+  }
+  .summary-card {
+    background: var(--ink);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    align-self: stretch;
+  }
+  .summary-card .summary-pill {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    padding: 0.42em 0.95em;
+    background: var(--mint);
+    color: var(--mint-deep);
+    border-radius: 100px;
+    font-size: 0.74rem;
+    font-weight: 500;
+    line-height: 1;
+  }
+  .summary-card p {
+    color: var(--bg);
+    font-size: 0.97rem;
+    line-height: 1.6;
+  }
+  .summary-card p + p { margin-top: 0.6rem; }
+  .comp-col h3 {
+    font-size: clamp(1.3rem, 1.7vw, 1.6rem);
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.012em;
+    margin-bottom: 1.25rem;
+  }
+  .comp-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    color: var(--ink-muted);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .comp-col ul li {
+    position: relative;
+    padding-left: 1rem;
+  }
+  .comp-col ul li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0.55em;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--mint);
+  }
+  .comp-col p { color: var(--ink-muted); font-size: 0.95rem; line-height: 1.6; }
+  .comp-col p + ul { margin-top: 0.6rem; }
+  .comp-col p + p { margin-top: 0.7rem; }
+  .comp-col-section + .comp-col-section { margin-top: 1.1rem; }
+  .comp-col-label {
+    font-size: 0.95rem;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+
+  .comp-header {
+    margin-bottom: 4vh;
+  }
+  .comp-header h2 { margin-bottom: 0.85rem; }
+
+  /* === CASE STUDY (slides 13–15): image left + text right + 4 footer pills === */
+  .case-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 4vw;
+    align-items: stretch;
+  }
+  .case-image {
+    background: var(--bg-2);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 60vh;
+  }
+  .case-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .case-image .case-image-fallback {
+    color: var(--ink-dim);
+    font-size: 0.92rem;
+    text-align: center;
+    padding: 2rem;
+  }
+  .case-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    padding-top: 1vh;
+  }
+  .case-title {
+    font-size: clamp(1.75rem, 2.6vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.018em;
+    color: var(--ink);
+  }
+  .case-body {
+    color: var(--ink-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .case-body p + p { margin-top: 0.85rem; }
+  .case-pills {
+    margin-top: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+  }
+  .case-pill {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 1.1rem 1rem;
+    color: var(--ink);
+    font-size: 0.82rem;
+    line-height: 1.4;
+    text-align: center;
+    position: relative;
+  }
+  .case-pill::before {
+    content: "";
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--mint);
+    display: block;
+    margin: 0 auto 0.7rem;
+  }
+
+  /* === TEAM (slides 16–18): 4-card grid with avatar, name, role, body === */
+  .team-header { margin-bottom: 4vh; }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    flex: 1;
+    align-content: start;
+  }
+  .team-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .team-card .pill {
+    align-self: flex-start;
+    margin-bottom: 1.5rem;
+  }
+  .team-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue-deep), var(--blue));
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    border: 1px solid var(--rule);
+    margin-bottom: 0.8rem;
+  }
+  .team-name {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .team-role {
+    color: var(--ink-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+  .team-body {
+    color: var(--ink-muted);
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+  .team-body p + p { margin-top: 0.7rem; }
+
+  /* === COOPERATION STEPS (slide 19): 4 cards with subgrid-aligned sections === */
+  .coop-header { margin-bottom: 4vh; }
+  .coop-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto 1fr auto auto;
+    column-gap: 1.25rem;
+    row-gap: 0.85rem;
+    flex: 1;
+    align-items: stretch;
+  }
+  .coop-card {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: 1 / -1;
+    row-gap: 0.85rem;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 1.5rem 1.4rem 1.6rem;
+  }
+  .coop-card .pill {
+    justify-self: start;
+    align-self: start;
+  }
+  .coop-card-title {
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+  .coop-card-body {
+    color: var(--ink-muted);
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+  .coop-card-section {
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--rule);
+  }
+  .coop-card-section-label {
+    font-size: 0.7rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .coop-card-section-text {
+    color: var(--ink);
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .coop-card-section-text.muted {
+    color: var(--ink-muted);
+  }
+
+  /* === 2-DAY TIMELINE (slide 20): intro + hour-axis + 2 calendar columns === */
+  .twoday-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 0.95fr 56px 1fr 1fr;
+    column-gap: 2vw;
+    align-items: start;
+  }
+  .twoday-intro h2 { margin-bottom: 1.5rem; }
+  .twoday-intro p {
+    color: var(--ink-muted);
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .twoday-intro p + p { margin-top: 0.7rem; }
+
+  .twoday-axis,
+  .twoday-day {
+    display: flex;
+    flex-direction: column;
+  }
+  .twoday-day-label {
+    font-size: 1.25rem;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    height: 1.25rem;
+  }
+  .twoday-day-label.spacer { visibility: hidden; }
+
+  .twoday-hours {
+    position: relative;
+    height: calc(90px * 8);
+    border-right: 1px solid var(--rule);
+  }
+  .twoday-hour {
+    position: absolute;
+    right: 0.5rem;
+    font-size: 0.74rem;
+    color: var(--ink-dim);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    transform: translateY(-0.5em);
+    line-height: 1;
+  }
+  .twoday-hour::after {
+    content: "";
+    position: absolute;
+    left: calc(100% + 0.5rem);
+    top: 50%;
+    width: 6px; height: 1px;
+    background: var(--rule-strong);
+  }
+
+  .twoday-events {
+    position: relative;
+    height: calc(90px * 8);
+  }
+  .twoday-events::before {
+    /* faint hour grid lines */
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
+    background-size: 100% 90px;
+    background-position: 0 0;
+    pointer-events: none;
+  }
+  .twoday-event {
+    position: absolute;
+    left: 0; right: 0;
+    background: rgba(3, 14, 35, 0.85);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 0.7rem 0.85rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .twoday-event-time {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.74rem;
+    color: var(--mint);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+  .twoday-event-time::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--mint);
+    flex-shrink: 0;
+  }
+  .twoday-event-title {
+    color: var(--ink);
+    font-size: 0.88rem;
+    line-height: 1.3;
+  }
+  .twoday-event-desc {
+    color: var(--ink-muted);
+    font-size: 0.72rem;
+    line-height: 1.45;
+  }
+
+  /* === KAPCSOLAT (slide 21): contact list left + astronaut right === */
+  .closing-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 4vw;
+    align-items: center;
+  }
+  .closing-left {
+    padding-right: 2vw;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+  .contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+  .contact-card {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 1.25rem;
+    align-items: start;
+  }
+  .contact-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+  }
+  .contact-info { display: flex; flex-direction: column; gap: 0.15rem; }
+  .contact-name {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .contact-role {
+    font-size: 1rem;
+    color: var(--ink-muted);
+    margin-bottom: 0.85rem;
+  }
+  .contact-meta {
+    font-size: 1rem;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+  .contact-meta-label {
+    color: var(--ink-dim);
+    margin-right: 0.3rem;
+  }
+  .contact-meta a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .contact-meta a:hover { color: var(--mint); }
+
+  .closing-image {
+    position: relative;
+    height: 70vh;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .closing-image img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  /* === NAVIGATION === */
+  .progress {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: rgba(244, 247, 251, 0.05);
+    z-index: 20;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--mint);
+    transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .nav {
+    position: fixed;
+    bottom: 4vh;
+    right: 3vw;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 15;
+    align-items: center;
+  }
+  .nav-counter {
+    font-size: 0.72rem;
+    color: var(--ink-dim);
+    margin-right: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.05em;
+  }
+  .nav-btn {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--rule);
+    background: rgba(3, 14, 35, 0.7);
+    backdrop-filter: blur(8px);
+    color: var(--ink-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+  .nav-btn:hover:not(:disabled) {
+    border-color: var(--mint);
+    color: var(--mint);
+    transform: scale(1.05);
+  }
+  .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .nav-btn svg { width: 16px; height: 16px; }
+
+  .hint {
+    position: fixed;
+    bottom: 4vh;
+    left: 3vw;
+    font-size: 0.7rem;
+    color: var(--ink-dim);
+    z-index: 15;
+    transition: opacity 0.6s ease;
+    letter-spacing: 0.02em;
+  }
+  .hint.hidden { opacity: 0; }
+  .hint kbd {
+    background: var(--bg-2);
+    border: 1px solid var(--rule);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.65rem;
+    font-family: inherit;
+    margin: 0 0.15rem;
+  }
+
+
+  /* ===================================================================== */
+  /* === METHODOLOGY SECTION (slides 14–21) ============================== */
+  /* ===================================================================== */
+
+  /* Shared compact header for method slides */
+  .method-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin-bottom: 3.2vh;
+    padding-bottom: 1.6rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .method-head h2 { line-height: 1.06; }
+  .method-lead {
+    color: var(--ink-muted);
+    font-size: clamp(0.98rem, 1.15vw, 1.18rem);
+    line-height: 1.55;
+    max-width: 70ch;
+  }
+
+  /* --- 14: PROCESS SPINE — 4 labs on the Double Diamond + cross-cutting MVP/Pivot --- */
+  .spine {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.6vh;
+    min-height: 0;
+  }
+  .spine-spaces {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.1rem;
+  }
+  .spine-space {
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    text-align: center;
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .spine-space b { color: var(--ink-muted); font-weight: 500; }
+  .spine-space.mint b { color: var(--mint); }
+  .spine-space-1 { grid-column: 1; }
+  .spine-space-2 { grid-column: 2 / 4; }
+  .spine-space-3 { grid-column: 4; }
+
+  .spine-flow {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.1rem;
+  }
+  .spine-flow::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 2%;
+    right: 2%;
+    height: 1px;
+    background: var(--rule-strong);
+    z-index: 0;
+  }
+  .spine-stage {
+    position: relative;
+    z-index: 1;
+    background: var(--bg-2);
+    border: 1px solid var(--rule-strong);
+    border-radius: 14px;
+    padding: 1.15rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.32rem;
+  }
+  .spine-stage-num {
+    font-size: 0.72rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.05em;
+    font-variant-numeric: tabular-nums;
+  }
+  .spine-stage-name {
+    font-size: clamp(1.05rem, 1.5vw, 1.4rem);
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+  .spine-loop { color: var(--mint); font-size: 0.9em; margin-left: 0.15rem; }
+  .spine-stage-role {
+    font-size: 0.84rem;
+    color: var(--ink-muted);
+    line-height: 1.4;
+  }
+  .spine-stage-dd {
+    font-size: 0.7rem;
+    color: var(--ink-dim);
+    margin-top: 0.35rem;
+    padding-top: 0.45rem;
+    border-top: 1px solid var(--rule);
+    letter-spacing: 0.02em;
+  }
+  .spine-stage.growth { border-color: rgba(80, 248, 208, 0.45); }
+  .spine-stage.growth .spine-stage-dd { color: var(--mint); border-top-color: rgba(80, 248, 208, 0.2); }
+
+  .spine-cross {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.7rem 1.1rem;
+  }
+  .cc-bar {
+    border-radius: 10px;
+    padding: 0.65rem 1rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    font-size: 0.82rem;
+  }
+  .cc-bar-tag {
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .cc-bar-desc { color: var(--ink-muted); line-height: 1.35; }
+  .cc-mvp {
+    grid-column: 2 / 5;
+    background: rgba(80, 248, 208, 0.07);
+    border: 1px solid rgba(80, 248, 208, 0.4);
+  }
+  .cc-mvp .cc-bar-tag { color: var(--mint); }
+  .cc-pivot {
+    grid-column: 1 / 5;
+    background: rgba(32, 88, 248, 0.10);
+    border: 1px solid var(--blue);
+  }
+  .cc-pivot .cc-bar-tag { color: var(--blue-bright); }
+
+  .spine-foot {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--ink-dim);
+  }
+  .spine-foot b { color: var(--ink-muted); font-weight: 500; }
+
+  /* --- 15: DOUBLE DIAMOND --- */
+  .dd-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2.2vh;
+  }
+  .dd-stage { width: 100%; }
+  .dd-svg {
+    width: 100%;
+    height: auto;
+    max-height: 46vh;
+    display: block;
+  }
+  .dd-map {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    padding-top: 2.2vh;
+    border-top: 1px solid var(--rule);
+  }
+  .dd-map-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .dd-map-phase {
+    font-size: 0.72rem;
+    color: var(--mint);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .dd-map-lab {
+    font-size: 1.05rem;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .dd-map-desc {
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    line-height: 1.45;
+  }
+
+  /* --- 16: THREE LENSES (service + business design) --- */
+  .lens-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-content: center;
+  }
+  .lens-card {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 1.8rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .lens-card::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--blue);
+  }
+  .lens-orb { width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 32% 30%, var(--blue-bright), var(--blue-deep)); margin-bottom: 0.3rem; }
+  .lens-en {
+    font-size: 0.72rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .lens-title {
+    font-size: clamp(1.3rem, 1.8vw, 1.7rem);
+    font-weight: 400;
+    letter-spacing: -0.012em;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+  .lens-q {
+    font-size: 0.95rem;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+  .lens-body {
+    font-size: 0.88rem;
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+  .lens-map-row {
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    margin-top: auto;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--rule);
+  }
+  .lens-map-row b { color: var(--ink-muted); font-weight: 500; }
+  .lens-note {
+    text-align: center;
+    color: var(--ink-muted);
+    font-size: 0.92rem;
+    margin-top: 2.4vh;
+  }
+  .lens-note b { color: var(--ink); font-weight: 500; }
+
+  /* --- 18: DUAL-TRACK AGILE --- */
+  .track-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  .track-lane {
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 1.25rem 1.4rem;
+    background: rgba(255, 255, 255, 0.02);
+    position: relative;
+  }
+  .track-lane.discovery { border-left: 3px solid var(--mint); }
+  .track-lane.delivery  { border-left: 3px solid var(--blue); }
+  .track-lane-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .track-lane-title {
+    font-size: 1.15rem;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .track-lane-q { font-size: 0.85rem; color: var(--ink-dim); }
+  .track-lane-out {
+    margin-left: auto;
+    font-size: 0.74rem;
+    color: var(--mint);
+    letter-spacing: 0.03em;
+  }
+  .track-lane.delivery .track-lane-out { color: var(--blue-bright); }
+  .track-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+  .track-step {
+    background: rgba(3, 14, 35, 0.6);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 0.7rem 0.85rem;
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    line-height: 1.35;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .track-step b { color: var(--ink); font-weight: 500; font-size: 0.86rem; }
+  .track-bridge {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--ink-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+  .track-bridge svg { width: 16px; height: 16px; color: var(--mint); }
+
+  /* --- 19: LEAN & MVP — build-measure-learn loop --- */
+  .bml-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 4vw;
+    align-items: center;
+  }
+  .bml-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .bml-svg { width: 100%; height: auto; max-height: 58vh; }
+  .bml-text { display: flex; flex-direction: column; gap: 1.4rem; }
+  .bml-point { display: flex; flex-direction: column; gap: 0.3rem; }
+  .bml-point h3 {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .bml-point p { color: var(--ink-muted); font-size: 0.9rem; line-height: 1.5; }
+  .bml-mvp {
+    background: var(--bg-card);
+    border: 1px solid var(--rule-strong);
+    border-left: 2px solid var(--mint);
+    border-radius: 12px;
+    padding: 1.1rem 1.3rem;
+  }
+  .bml-mvp .bml-mvp-label {
+    font-size: 0.72rem;
+    color: var(--mint);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .bml-mvp p { color: var(--ink-muted); font-size: 0.88rem; line-height: 1.5; }
+
+  /* --- 20: PIVOT --- */
+  .pivot-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    align-content: center;
+  }
+  .pivot-chip {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 1.05rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  .pivot-chip:hover { border-color: var(--mint); transform: translateY(-2px); }
+  .pivot-chip-name {
+    font-size: 1rem;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .pivot-chip-name::before {
+    content: "";
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--mint);
+    flex-shrink: 0;
+  }
+  .pivot-chip-desc { font-size: 0.82rem; color: var(--ink-muted); line-height: 1.4; }
+
+  /* --- 21: GATED PROCESS FLOW --- */
+  .gate-flow {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+  }
+  .gate-phase {
+    flex: 1 1 0;
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 1.4rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .gate-phase-num {
+    font-size: 0.72rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.05em;
+    font-variant-numeric: tabular-nums;
+  }
+  .gate-phase-title {
+    font-size: 1.15rem;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+  .gate-phase-time {
+    align-self: flex-start;
+    font-size: 0.72rem;
+    color: var(--mint);
+    border: 1px solid rgba(80, 248, 208, 0.3);
+    border-radius: 100px;
+    padding: 0.2rem 0.7rem;
+  }
+  .gate-phase-desc {
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    line-height: 1.45;
+  }
+  .gate-phase.final { border-color: rgba(80, 248, 208, 0.4); }
+  .gate-marker {
+    flex: 0 0 96px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  .gate-diamond {
+    width: 26px; height: 26px;
+    background: var(--mint);
+    transform: rotate(45deg);
+    border-radius: 5px;
+    flex-shrink: 0;
+  }
+  .gate-marker-label {
+    font-size: 0.7rem;
+    color: var(--ink-muted);
+    line-height: 1.25;
+    letter-spacing: 0.02em;
+  }
+  .gate-marker-sub { font-size: 0.64rem; color: var(--ink-dim); }
+
+  /* Methodology responsive */
+  img.contact-avatar { object-fit: cover; background: var(--bg-2); }
+  img.team-avatar { object-fit: cover; }
+
+
+  /* --- 15: DOUBLE DIAMOND (full-bleed Nessler revamp) --- */
+  .dd-head { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1vh; }
+  .dd-head-title { font-size: clamp(1.05rem, 1.4vw, 1.45rem); color: var(--ink-muted); letter-spacing: -0.01em; }
+  .dd-full { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; }
+  .dd-full-svg { width: 100%; height: 100%; max-height: 85vh; display: block; }
+
+
+  /* --- 18: Better Together (Design Thinking + Lean UX + Agile) --- */
+  .bt-wrap { flex: 1; display: flex; flex-direction: column; min-height: 0; gap: 2.2vh; }
+  .bt-loops { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; }
+  .bt-svg { width: 100%; height: 100%; max-height: 44vh; display: block; }
+  .bt-phases { display: flex; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .bt-phase { flex: 1; text-align: center; padding: 0.7rem 0.5rem; font-size: 0.98rem; color: var(--ink); border-left: 1px solid var(--rule); }
+  .bt-phase:first-child { border-left: none; }
+  .bt-phase span { display: block; font-size: 0.7rem; color: var(--ink-dim); letter-spacing: 0.06em; margin-bottom: 0.2rem; font-variant-numeric: tabular-nums; }
+  .bt-phase em { font-style: normal; color: var(--ink-dim); font-size: 0.8rem; margin-left: 0.3rem; }
+  .bt-legend { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+  .bt-leg { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.45; padding-left: 1.15rem; position: relative; }
+  .bt-leg b { color: var(--ink); font-weight: 500; }
+  .bt-dot { position: absolute; left: 0; top: 0.4em; width: 9px; height: 9px; border-radius: 50%; }
+  .bt-dt { background: #4878FF; }
+  .bt-lean { background: #50F8D0; }
+  .bt-agile { background: #2058F8; }
+
+  /* --- 21: deep-dive gate flow extras --- */
+  .gate-phase-title em { font-style: normal; color: var(--ink-dim); font-size: 0.6em; margin-left: 0.4rem; }
+  .gate-phase-method { font-size: 0.7rem; color: var(--mint); line-height: 1.4; margin-top: auto; padding-top: 0.6rem; border-top: 1px solid var(--rule); }
+  .gate-foot { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; margin-top: 2vh; padding-top: 1.3rem; border-top: 1px solid var(--rule); }
+  .gate-foot-item { font-size: 0.82rem; color: var(--ink-muted); line-height: 1.45; }
+  .gate-foot-item b { color: var(--ink); font-weight: 500; }
+  /* 21: cross-cutting MVP/Pivot strip above the gated flow */
+  .gate-cross {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.4rem;
+    margin-bottom: 1.8vh;
+    padding: 0.55rem 1rem;
+    border: 1px dashed var(--rule-strong);
+    border-radius: 10px;
+  }
+  .gate-cross-label {
+    font-size: 0.68rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .gate-cross-item {
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .gate-cross-tag { font-size: 0.74rem; font-weight: 500; letter-spacing: 0.03em; }
+  .gate-cross-item.mvp .gate-cross-tag { color: var(--mint); }
+  .gate-cross-item.pivot .gate-cross-tag { color: var(--blue-bright); }
+
+  /* case image: show whole image (no crop) on Econ + MedTech */
+  .case-image:has(img[src*="case-econ"]), .case-image:has(img[src*="case-medtech"]) { background: var(--bg-2); }
+  .case-image:has(img[src*="case-econ"]) img, .case-image:has(img[src*="case-medtech"]) img { object-fit: contain; }
+
+
+  /* --- 18: Better Together — clean journey bands --- */
+  .bt2 { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+  .bt2-phases { display: grid; grid-template-columns: repeat(4, 1fr); margin-bottom: 1.1rem; }
+  .bt2-phases span { text-align: center; font-size: 0.8rem; color: var(--ink-dim); letter-spacing: 0.05em; border-left: 1px solid var(--rule); padding: 0.3rem 0.2rem; }
+  .bt2-phases span:first-child { border-left: none; }
+  .bt2-track { position: relative; flex: 1; min-height: 0; }
+  .bt2-band { position: absolute; border-radius: 14px; padding: 1rem 1.4rem; display: flex; flex-direction: column; gap: 0.18rem; justify-content: center; }
+  .bt2-band-name { font-size: clamp(1.05rem, 1.5vw, 1.4rem); color: var(--ink); letter-spacing: -0.01em; }
+  .bt2-band-sub { font-size: 0.95rem; }
+  .bt2-band-tags { font-size: 0.8rem; color: var(--ink-dim); margin-top: 0.15rem; }
+  .bt2-dt    { left: 0;   width: 54%; top: 2%;  height: 28%; background: rgba(72,120,255,0.13); border: 1px solid #4878FF; }
+  .bt2-lean  { left: 25%; width: 52%; top: 36%; height: 28%; background: rgba(80,248,208,0.10); border: 1px solid #50F8D0; }
+  .bt2-agile { left: 48%; width: 52%; top: 70%; height: 28%; background: rgba(32,88,248,0.16); border: 1px solid #2058F8; }
+  .bt2-dt .bt2-band-sub    { color: #6E9BFF; }
+  .bt2-lean .bt2-band-sub  { color: #50F8D0; }
+  .bt2-agile .bt2-band-sub { color: #6E9BFF; }
+  .bt2-axis { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 0.8rem; border-top: 1px solid var(--rule); font-size: 0.82rem; color: var(--ink-dim); }
+  .bt2-axis-c { color: var(--ink-muted); letter-spacing: 0.04em; }
+
+  /* --- 21: deliverable line + balanced cards --- */
+  .gate-flow .gate-phase { justify-content: center; }
+  .gate-flow .gate-phase-method { margin-top: 0.5rem; }
+  .gate-phase-deliver { font-size: 0.72rem; color: var(--ink-muted); line-height: 1.4; margin-top: 0.45rem; padding-top: 0.45rem; border-top: 1px dashed var(--rule); }
+  .gate-phase-deliver::before { content: "Szállítjuk: "; color: var(--ink-dim); }
+
+  @media (max-width: 1100px) {
+    .method-overview { grid-template-columns: 1fr; row-gap: 2rem; }
+    .foundation { border-right: none; padding-right: 0; border-bottom: 1px solid var(--rule); padding-bottom: 1.5rem; }
+    .toolkit { padding-left: 0; }
+    .lens-grid, .pivot-grid, .dd-map { grid-template-columns: 1fr; }
+    .bml-grid { grid-template-columns: 1fr; }
+    .track-steps { grid-template-columns: repeat(2, 1fr); }
+    .gate-flow { flex-direction: column; }
+    .gate-marker { flex-basis: auto; flex-direction: row; padding: 0.3rem 0; }
+    .gate-diamond { width: 18px; height: 18px; }
+  }
+
+  @media (max-width: 1100px) {
+    .lab-cols { grid-template-columns: 1fr; gap: 2rem; }
+    .services-grid, .team-grid, .coop-grid { grid-template-columns: repeat(2, 1fr); }
+    .case-pills { grid-template-columns: repeat(2, 1fr); }
+    .twoday-grid { grid-template-columns: 1fr; }
+    .comp-grid { grid-template-columns: 1fr; row-gap: 1.5rem; }
+    .principles-grid { grid-template-columns: 1fr; row-gap: 1.5rem; }
+  }
+
+  @media (max-width: 900px) {
+    .cover-grid, .closing-grid, .case-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .services-grid, .team-grid, .coop-grid, .services-aux-grid { grid-template-columns: 1fr; }
+    .aux-card-text { padding-right: 0; }
+    .image-band-bottom { height: 80px; }
+    .lab-cols { margin-bottom: 90px; }
+    .spine-spaces, .spine-flow, .spine-cross { grid-template-columns: 1fr; }
+    .spine-space-1, .spine-space-2, .spine-space-3, .cc-mvp, .cc-pivot { grid-column: 1; }
+    .spine-flow::before { display: none; }
+  }
+
+  /* ===================================================================== */
+  /* === CANONICAL COMPONENTS (Sonar design system) ====================== */
+  /* Forrás: AI_Toborzasi_Rendszer_Sonar_csomagok_v2 — a Sonar deck         */
+  /* referencia design nyelve. Az itt lévő szabályok NEM ad-hoc            */
+  /* variációk, hanem a rendszer kanonikus komponensei.                    */
+  /* ===================================================================== */
+
+  /* --- Dia-tag (jobb felső sarok) ------------------------------------- */
+  .slide-tag {
+    position: absolute;
+    top: 4vh;
+    right: 6vw;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--ink-dim);
+    letter-spacing: 0.05em;
+    z-index: 5;
+  }
+
+  /* --- Gomb ----------------------------------------------------------- */
+  .btn {
+    padding: 0.85rem 1.5rem;
+    border-radius: 100px;
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 500;
+    border: 1px solid var(--rule-strong);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn:hover { border-color: var(--mint); color: var(--mint); }
+  .btn-primary { background: var(--mint); color: var(--mint-deep); border-color: var(--mint); }
+  .btn-primary:hover { background: transparent; color: var(--mint); }
+
+  /* --- Borító: 14 darabból animált kompozíció ------------------------- */
+  .cover-title {
+    font-size: clamp(1.85rem, 3vw, 3.6rem);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.018em;
+  }
+  .composition {
+    position: relative;
+    aspect-ratio: 1261 / 1111;
+    width: 100%;
+    max-height: 100%;
+  }
+  @supports (aspect-ratio: 1) {
+    .composition { width: min(100%, calc(100% * 1.135)); }
+  }
+  .comp-piece {
+    position: absolute;
+    width: 33.31%;              /* minden darab 420 / 1261 széles */
+    height: auto;
+    display: block;
+    opacity: 0;
+    will-change: opacity;
+  }
+  .slide.active .composition .comp-piece {
+    animation-name: piece-fade;
+    animation-fill-mode: both;
+  }
+  @keyframes piece-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  .composition img { display: block; height: auto; }
+
+  /* Darab-koordináták (Figma 3713:1352, 1261×1111 frame) + per-darab animáció */
+  .cp-left-circle    { left: 0%;     top: 0.99%;
+    animation-delay: 0.10s; animation-duration: 0.9s;  animation-timing-function: ease-out; }
+  .cp-left-mid-431   { left: 0%;     top: 38.79%;
+    animation-delay: 1.20s; animation-duration: 0.7s;  animation-timing-function: ease-in; }
+  .cp-left-mid-564   { left: 0%;     top: 50.77%;
+    animation-delay: 0.80s; animation-duration: 0.9s;  animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0); }
+  .cp-left-789       { left: 0.16%;  top: 71.02%;
+    animation-delay: 1.60s; animation-duration: 0.5s;  animation-timing-function: linear; }
+  .cp-left-901       { left: 0.08%;  top: 81.10%;
+    animation-delay: 1.00s; animation-duration: 1.2s;  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  .cp-mid-astronaut  { left: 33.30%; top: 15.74%;
+    animation-delay: 0s;    animation-duration: 1.3s;  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  .cp-mid-circle     { left: 33.30%; top: 62.19%;
+    animation-delay: 0.40s; animation-duration: 1.1s;  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+  .cp-right-top      { left: 66.61%; top: 0%;
+    animation-delay: 0.60s; animation-duration: 0.5s;  animation-timing-function: ease-in; }
+  .cp-right-62       { left: 66.61%; top: 5.57%;
+    animation-delay: 0.30s; animation-duration: 0.7s;  animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
+  .cp-right-174      { left: 66.61%; top: 15.65%;
+    animation-delay: 0.90s; animation-duration: 0.6s;  animation-timing-function: ease-out; }
+  .cp-right-553      { left: 66.69%; top: 49.77%;
+    animation-delay: 1.10s; animation-duration: 0.8s;  animation-timing-function: linear; }
+  .cp-right-615      { left: 66.69%; top: 55.36%;
+    animation-delay: 0.70s; animation-duration: 0.5s;  animation-timing-function: ease-in-out; }
+  .cp-right-677      { left: 66.69%; top: 60.93%;
+    animation-delay: 1.40s; animation-duration: 0.6s;  animation-timing-function: ease-out; }
+  .cp-right-789      { left: 66.69%; top: 71.01%;
+    animation-delay: 0.50s; animation-duration: 1.0s;  animation-timing-function: cubic-bezier(0.83, 0, 0.17, 1); }
+
+  /* --- Dia-fejléc: cím + jobbra igazított sorszám, alatta vonal ------- */
+  .step-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 3vw;
+    margin-bottom: 4vh;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .step-header-left { display: flex; flex-direction: column; gap: 1rem; }
+  .step-header-meta-row { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; }
+  .step-header-num {
+    font-size: 0.72rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.05em;
+  }
+  .step-header-title {
+    font-size: clamp(2rem, 3.4vw, 3.25rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.018em;
+  }
+  .step-header-hours {
+    font-size: clamp(2.25rem, 3.8vw, 3.5rem);
+    font-weight: 400;
+    line-height: 1;
+    color: var(--mint);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .step-header-hours .unit {
+    font-size: 0.45em;
+    color: var(--ink-muted);
+    margin-left: 0.3rem;
+  }
+
+  /* --- Három hasáb: Kihívás / Megoldás / Eredmény --------------------- */
+  .step-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3vw;
+    align-content: start;
+    margin-bottom: 130px;        /* hely az image-band-nek */
+  }
+  .step-col h3 {
+    font-weight: 500;
+    color: var(--mint);
+    letter-spacing: 0.03em;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+  }
+  .step-col p {
+    color: var(--ink-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .step-col p + p { margin-top: 1rem; }
+  .step-col.solution {
+    padding-left: 1.25rem;
+    border-left: 2px solid var(--blue);
+  }
+  .step-col.result {
+    padding-left: 1.25rem;
+    border-left: 2px solid transparent;
+    border-image: linear-gradient(to bottom, rgba(80, 248, 208, 0.6) 0%, rgba(80, 248, 208, 0.35) 100%) 1;
+  }
+
+  /* --- Kanonikus listák ----------------------------------------------- */
+  /* Pontos felsorolás — mint pont */
+  .scope-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .scope-list li {
+    font-size: 0.96rem;
+    color: var(--ink-muted);
+    line-height: 1.4;
+    padding-left: 1.1rem;
+    position: relative;
+  }
+  .scope-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--mint);
+  }
+
+  /* Szállítandók — mint pipa */
+  .pricing-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.62rem;
+    padding: 0;
+    margin: 0;
+  }
+  .pricing-features li {
+    font-size: 0.92rem;
+    color: var(--ink-muted);
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    line-height: 1.4;
+  }
+  .pricing-features li::before {
+    content: '\2713';
+    color: var(--mint);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  /* --- Nagy szám kártya (stat / metrika) ------------------------------ */
+  .rate-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.1rem;
+    margin-top: 4vh;
+  }
+  .rate-card {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 1.75rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.75rem;
+    min-height: 180px;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  .rate-card:hover { border-color: var(--mint); transform: translateY(-2px); }
+  .rate-card-role { font-size: 1rem; color: var(--ink-muted); letter-spacing: 0.02em; }
+  .rate-card-price { display: flex; align-items: baseline; gap: 0.4rem; flex-wrap: wrap; }
+  .rate-card-num {
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--mint);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .rate-card-unit { font-size: 0.9rem; color: var(--ink-muted); }
+
+  /* --- Kártya-fejléc cím + sorszám ------------------------------------ */
+  .scope-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 4vh;
+    gap: 3rem;
+  }
+  .scope-header h2 { max-width: 22ch; }
+  .scope-header.stacked { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .scope-header.stacked h2 { max-width: none; }
+  .scope-card {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 1.5rem 1.5rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  .scope-card:hover { border-color: var(--mint); transform: translateY(-2px); }
+  .scope-card-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .scope-card-title {
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  .scope-card-num {
+    font-size: 0.72rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.05em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* --- Csomag-kártya (áttekintő) -------------------------------------- */
+  .pricing-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 3rem;
+    margin-bottom: 2.5vh;
+  }
+  .pricing-header h2 { max-width: 20ch; }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    flex: 1;
+    align-items: stretch;
+    align-content: center;
+  }
+  .pricing-card {
+    position: relative;
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 18px;
+    padding: 1.85rem 1.7rem 1.7rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.95rem;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+    cursor: pointer;
+    font-family: inherit;
+    color: inherit;
+    text-align: left;
+  }
+  .pricing-card:hover { border-color: var(--mint); transform: translateY(-3px); }
+  .pricing-card-tier {
+    font-size: 0.78rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .pricing-card-amount {
+    font-size: 2.45rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .pricing-card-sub { font-size: 0.8rem; color: var(--ink-dim); margin-top: -0.5rem; }
+
+  /* ===================================================================== */
+  /* === DECK-SPECIFIKUS: SZOLGÁLTATÁSCSOMAGOK =========================== */
+  /* A fentiek kanonikus komponenseire épül, nem helyettesíti őket.        */
+  /* ===================================================================== */
+
+  /* Szolgáltatásaink — 4 csomag-kártya képpel (a .pricing-card variánsa) */
+  .services-grid.packages { grid-template-columns: repeat(4, 1fr); }
+  .services-grid.packages .service-card { border-radius: 18px; }
+  .services-grid.packages .service-card-title {
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  .services-grid.packages .service-card-sub { font-size: 0.96rem; line-height: 1.4; }
+  .services-grid.packages .service-card-image { height: 74%; }
+
+  /* Csomag-dia: rövid hasáb-tartalom a fejléc és az image-band közé
+     igazítva — ugyanaz a kezelés, amit a referencia a .pkg-grid-re
+     alkalmaz (align-content: center). */
+  .step-cols.centered {
+    flex: 1;
+    align-content: center;
+  }
+
+  /* A csomag lead-sora a fejléc alatt */
+  .pkg-lead {
+    max-width: 46ch;
+    margin-bottom: 3.5vh;
+    color: var(--ink);
+  }
+
+  /* Probléma — ügyfél-idézetek (a .scope-list idézet-variánsa) */
+  .quote-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .quote-list li {
+    font-size: 0.96rem;
+    color: var(--ink);
+    line-height: 1.45;
+    padding-left: 1.1rem;
+    border-left: 2px solid var(--rule-strong);
+  }
+
+  /* Megoldás — számozott lépések */
+  ol.step-list {
+    list-style: none;
+    counter-reset: step;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    color: var(--ink-muted);
+    font-size: 0.96rem;
+    line-height: 1.5;
+  }
+  ol.step-list li {
+    position: relative;
+    padding-left: 2.1rem;
+    counter-increment: step;
+  }
+  ol.step-list li::before {
+    content: counter(step, decimal-leading-zero);
+    position: absolute;
+    left: 0; top: 0.1em;
+    color: var(--mint);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+
+  /* Esettanulmány — felsorolt szállítandók (metrika helyett) */
+  .case-highlights {
+    margin-top: auto;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+  }
+  .case-highlights-label {
+    font-weight: 500;
+    color: var(--mint);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    margin-bottom: 1.1rem;
+  }
+
+  /* Esettanulmány — metrika-sáv a .rate-card kártyából */
+  .case-stats {
+    margin-top: auto;
+    display: grid;
+    gap: 0.85rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+  }
+  .case-stats.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .case-stats.cols-5 { grid-template-columns: repeat(5, 1fr); }
+  .case-stats.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .case-stats .rate-card {
+    min-height: 0;
+    gap: 0.85rem;
+    padding: 1.15rem 1.15rem 1.2rem;
+  }
+  .case-stats .rate-card-role { font-size: 0.88rem; line-height: 1.35; }
+  .case-stats.cols-5 .rate-card { padding: 1rem; }
+  .case-stats.cols-5 .rate-card-num { font-size: 1.7rem; }
+  .case-stats.cols-5 .rate-card-role { font-size: 0.8rem; }
+
+  /* === LOGO HINT — compact navigation legend under the Sonar logo === */
+  .logo-hint {
+    position: fixed;
+    top: calc(4vh + 64px);
+    left: 6vw;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.4rem 0.4rem 0.4rem 0.75rem;
+    background: rgba(10, 23, 48, 0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    z-index: 100;
+    opacity: 0;
+    transform: translateY(-12px);
+    animation: logo-hint-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .logo-hint.dismissed {
+    opacity: 0;
+    transform: translateY(-12px);
+    pointer-events: none;
+    animation: none;
+  }
+  .logo-hint-close {
+    background: transparent;
+    border: none;
+    color: var(--ink-dim);
+    cursor: pointer;
+    padding: 0.25rem;
+    margin-left: 0.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+  .logo-hint-close:hover {
+    color: var(--mint);
+    background: rgba(80, 248, 208, 0.08);
+  }
+  .logo-hint-keys { display: flex; gap: 0.3rem; }
+  .logo-hint kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 0.3rem;
+    background: var(--bg-2);
+    border: 1px solid var(--rule-strong);
+    border-radius: 5px;
+    font-size: 0.82rem;
+    font-family: inherit;
+    color: var(--ink-muted);
+    line-height: 1;
+  }
+  .logo-hint-text {
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    letter-spacing: 0.01em;
+    line-height: 1;
+  }
+  @keyframes logo-hint-in {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* === MOBILE — scrollable slides + tighter layout === */
+  @media screen and (max-width: 768px) {
+    html, body { height: 100%; overflow: hidden; }
+    .slide {
+      padding: 6vh 5vw 8vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+    .slide-tag { font-size: 0.7rem; top: 2.5vh; right: 5vw; }
+    .logo { top: 2.5vh; left: 5vw; width: 70px; }
+    .logo-hint { top: calc(2.5vh + 50px); left: 5vw; padding: 0.35rem 0.4rem 0.35rem 0.6rem; }
+    .logo-hint-text { display: none; }
+
+    .display-xl { font-size: clamp(1.6rem, 7vw, 2.5rem); }
+    .display-l  { font-size: clamp(1.45rem, 6vw, 2rem); }
+    .display-m  { font-size: clamp(1.2rem, 4.5vw, 1.6rem); }
+    .cover-title { font-size: clamp(1.4rem, 6.5vw, 2rem); line-height: 1.15; }
+
+    .cover { padding: 6vh 5vw 0; }
+    .cover-text { padding-top: 1vh; }
+    .cover-image { height: 50vh; }
+    .closing-image { height: 40vh; min-height: 0; }
+
+    .toc-row { grid-template-columns: 44px 1fr auto; padding: 0.7rem 1rem; column-gap: 0.85rem; }
+    .toc-title { font-size: 1.05rem; }
+    .toc-sub { font-size: 0.92rem; }
+
+    .step-header { grid-template-columns: 1fr; gap: 1rem; padding-bottom: 1.25rem; }
+    .step-header-title { font-size: clamp(1.6rem, 6vw, 2.25rem); }
+    .step-header-hours { font-size: clamp(1.8rem, 7vw, 2.5rem); }
+    .step-cols { grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .step-col.solution, .step-col.result { padding-left: 1rem; }
+    .pkg-lead { margin-bottom: 2vh; }
+
+    .services-grid.packages { grid-template-columns: 1fr; gap: 1rem; }
+    .services-grid.packages .service-card-image { height: auto; min-height: 160px; }
+    .scope-grid { grid-template-columns: 1fr; grid-template-rows: auto; gap: 1rem; }
+    .scope-card { padding: 1.25rem; gap: 0.85rem; }
+    .scope-card-title { font-size: 1.2rem; }
+    .scope-list li { font-size: 0.92rem; }
+    .pricing-grid { grid-template-columns: 1fr; gap: 1rem; }
+
+    .rate-grid { grid-template-columns: 1fr; gap: 0.85rem; margin-top: 2.5vh; }
+    .rate-card {
+      min-height: auto;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem;
+    }
+    .rate-card-num { font-size: 1.65rem; }
+    .case-stats { grid-template-columns: 1fr !important; gap: 0.7rem; padding-top: 1.25rem; }
+    .case-stats .rate-card { flex-direction: row; align-items: center; gap: 1rem; }
+
+    .contact-card { grid-template-columns: 56px 1fr; gap: 0.85rem; }
+    .contact-avatar { width: 56px; height: 56px; }
+    .contact-name { font-size: 1.25rem; }
+
+    .image-band-bottom {
+      position: relative;
+      bottom: auto; left: auto; right: auto;
+      margin-top: auto;
+      height: 100px;
+      width: 100vw;
+      margin-left: -5vw;
+      margin-right: -5vw;
+      margin-bottom: -8vh;
+      flex-shrink: 0;
+    }
+
+    .nav { bottom: 2vh; right: 4vw; }
+    .nav-counter { display: none; }
+    .nav-btn { width: 36px; height: 36px; }
+    .hint { display: none; }
+    .progress { height: 3px; }
+  }
+
+  @media screen and (max-width: 480px) {
+    .slide { padding: 5vh 4vw 7vh; }
+    .composition { width: 100%; }
+    .image-band-bottom {
+      width: 100vw;
+      margin-left: -4vw;
+      margin-right: -4vw;
+      margin-bottom: -7vh;
+    }
+  }
+
+  /* === PRINT MODE — 1920×1080 per slide, no chrome, all animations finished === */
+  @media print {
+    @page {
+      size: 1920px 1080px;
+      margin: 0;
+    }
+    html, body {
+      height: auto;
+      overflow: visible;
+      background: var(--bg);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      color-adjust: exact;
+    }
+    *, *::before, *::after {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    body::before { position: absolute; }
+    .deck { position: static; }
+    /* Stack every slide one after another, each on its own page */
+    .slide {
+      position: relative !important;
+      inset: auto !important;
+      width: 1920px;
+      height: 1080px;
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+      page-break-after: always;
+      break-after: page;
+      transition: none !important;
+    }
+    .slide:last-child {
+      page-break-after: auto;
+      break-after: auto;
+    }
+    /* Kill all animations — show final state immediately */
+    .reveal,
+    .comp-piece {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    /* Hide interactive chrome */
+    .nav, .progress, .hint, .logo-hint { display: none !important; }
+    .logo { position: absolute; }
+    .service-card-jump { display: none !important; }
+
+    /* === FORCE DESKTOP LAYOUT — guard against any responsive override === */
+    html, body { width: 1920px !important; min-width: 1920px !important; }
+    .slide {
+      padding: 7vh 6vw 8vh !important;
+      overflow: hidden !important;
+    }
+    .cover { padding: 7vh 6vw 0 !important; }
+    .cover-grid { grid-template-columns: 1fr 1.05fr !important; gap: 4vw !important; }
+    .cover-image { height: 78vh !important; }
+    .closing-grid { grid-template-columns: 1fr 1.05fr !important; gap: 4vw !important; }
+    .closing-image { height: 70vh !important; }
+    .case-grid { grid-template-columns: 0.95fr 1.05fr !important; gap: 4vw !important; }
+    .services-grid { grid-template-columns: repeat(4, 1fr) !important; gap: 1.25rem !important; }
+    .team-grid, .coop-grid { grid-template-columns: repeat(4, 1fr) !important; }
+    .services-aux-grid { grid-template-columns: 1fr 1fr !important; }
+    .step-header { grid-template-columns: 1fr auto !important; gap: 3vw !important; }
+    .step-cols { grid-template-columns: repeat(3, 1fr) !important; gap: 3vw !important; margin-bottom: 130px !important; }
+    .step-cols.centered { align-content: center !important; }
+    .case-stats.cols-3 { grid-template-columns: repeat(3, 1fr) !important; }
+    .case-stats.cols-4 { grid-template-columns: repeat(4, 1fr) !important; }
+    .case-stats.cols-5 { grid-template-columns: repeat(5, 1fr) !important; }
+    .rate-grid { grid-template-columns: repeat(4, 1fr) !important; }
+    .scope-grid { grid-template-columns: repeat(3, 1fr) !important; }
+    .pricing-grid { grid-template-columns: repeat(3, 1fr) !important; }
+    .lab-cols { grid-template-columns: 1fr 1fr !important; }
+    .principles-grid { grid-template-columns: repeat(3, 1fr) !important; }
+    .comp-grid { grid-template-columns: 0.9fr 1fr 1fr 1fr !important; row-gap: 0 !important; }
+    .case-pills { grid-template-columns: repeat(4, 1fr) !important; }
+    .gate-flow { flex-direction: row !important; }
+    .scope-header, .pricing-header, .services-header, .team-header {
+      flex-direction: row !important;
+      align-items: flex-end !important;
+    }
+    .image-band-bottom {
+      position: absolute !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      width: auto !important;
+      height: 130px !important;
+      margin: 0 !important;
+      flex-shrink: initial !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<button class="logo" type="button" id="logoBtn" aria-label="Vissza a tartalomjegyzékre">
+  <img src="assets/sonar-logo_full_white.svg" alt="Sonar Digital">
+</button>
+
+<div class="logo-hint" id="logoHint">
+  <span class="logo-hint-keys">
+    <kbd>&larr;</kbd><kbd>&rarr;</kbd>
+  </span>
+  <span class="logo-hint-text">lapozás &middot; a logóra kattintva tartalomjegyzék</span>
+  <button class="logo-hint-close" type="button" id="logoHintClose" aria-label="Tipp elrejtése">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+</div>
+
+<div class="deck" id="deck">
+
+  <!-- ============ SLIDE 1: COVER ============ -->
+  <section class="slide cover active" data-slide="1">
+    <div class="slide-tag">2026</div>
+
+    <div class="cover-grid">
+      <div class="cover-text">
+        <div class="reveal reveal-1" style="margin-bottom: 1.5rem;">
+          <span class="pill">Bemutatkozás</span>
+        </div>
+        <h1 class="display display-xl reveal reveal-2">
+          A céged<br>többre képes,<br>mint ma
+        </h1>
+        <p class="body-l reveal reveal-3" style="margin-top: 1.75rem; max-width: 38ch;">
+          Növekedési fókuszú innovációs műhely. Ügyfélszerzés, termék, üzemeltetés vagy teljes újratervezés &mdash; a csapatod részeként.
+        </p>
+      </div>
+
+      <div class="cover-image">
+        <div class="composition">
+          <!-- Bal hasáb -->
+          <img class="comp-piece cp-left-circle"   src="assets/comp/comp-left-circle.png" alt="">
+          <img class="comp-piece cp-left-mid-431"  src="assets/comp/comp-left-431.png" alt="">
+          <img class="comp-piece cp-left-mid-564"  src="assets/comp/comp-left-564.png" alt="">
+          <img class="comp-piece cp-left-789"      src="assets/comp/comp-left-789.png" alt="">
+          <img class="comp-piece cp-left-901"      src="assets/comp/comp-left-901.png" alt="">
+          <!-- Középső hasáb -->
+          <img class="comp-piece cp-mid-astronaut" src="assets/comp/comp-mid-astronaut.png" alt="">
+          <img class="comp-piece cp-mid-circle"    src="assets/comp/comp-mid-circle.png" alt="">
+          <!-- Jobb hasáb -->
+          <img class="comp-piece cp-right-top"     src="assets/comp/comp-right-top.png" alt="">
+          <img class="comp-piece cp-right-62"      src="assets/comp/comp-right-62.png" alt="">
+          <img class="comp-piece cp-right-174"     src="assets/comp/comp-right-174.png" alt="">
+          <img class="comp-piece cp-right-553"     src="assets/comp/comp-right-553.png" alt="">
+          <img class="comp-piece cp-right-615"     src="assets/comp/comp-right-615.png" alt="">
+          <img class="comp-piece cp-right-677"     src="assets/comp/comp-right-677.png" alt="">
+          <img class="comp-piece cp-right-789"     src="assets/comp/comp-right-789.png" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 2: TABLE OF CONTENTS ============ -->
+  <section class="slide" data-slide="2">
+    <div class="slide-tag">02 &mdash; Tartalom</div>
+
+    <div class="toc-header reveal reveal-1">
+      <h2 class="display display-l">Tartalom</h2>
+      <span class="pill">Tartalomjegyzék</span>
+    </div>
+
+    <div class="toc-list">
+      <button class="toc-row reveal reveal-2" type="button" data-target="3">
+        <span class="toc-num">01</span>
+        <span class="toc-text">
+          <span class="toc-title">A Sonarról</span>
+          <span class="toc-sub">Bemutatkozás &amp; ars poetica &mdash; üzleti cél, kivitelezés, emberközpontúság</span>
+        </span>
+        <span class="toc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </button>
+
+      <button class="toc-row reveal reveal-2" type="button" data-target="5">
+        <span class="toc-num">02</span>
+        <span class="toc-text">
+          <span class="toc-title">Szolgáltatásaink</span>
+          <span class="toc-sub">Négy csomag &mdash; SELL &middot; BUILD &middot; OPERATE &middot; RETHINK</span>
+        </span>
+        <span class="toc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </button>
+
+      <button class="toc-row reveal reveal-3" type="button" data-target="6">
+        <span class="toc-num">03</span>
+        <span class="toc-text">
+          <span class="toc-title">SELL</span>
+          <span class="toc-sub">Üzletszerzés &mdash; esettanulmány: MedTech pipeline</span>
+        </span>
+        <span class="toc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </button>
+
+      <button class="toc-row reveal reveal-3" type="button" data-target="8">
+        <span class="toc-num">04</span>
+        <span class="toc-text">
+          <span class="toc-title">BUILD</span>
+          <span class="toc-sub">Termékesítés &mdash; esettanulmány: Labtech</span>
+        </span>
+        <span class="toc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </button>
+
+      <button class="toc-row reveal reveal-4" type="button" data-target="10">
+        <span class="toc-num">05</span>
+        <span class="toc-text">
+          <span class="toc-title">OPERATE</span>
+          <span class="toc-sub">Üzemeltetés &mdash; esettanulmány: Kék Vonal Alapítvány</span>
+        </span>
+        <span class="toc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </button>
+
+      <button class="toc-row reveal reveal-4" type="button" data-target="12">
+        <span class="toc-num">06</span>
+        <span class="toc-text">
+          <span class="toc-title">RETHINK</span>
+          <span class="toc-sub">Újratervezés &mdash; esettanulmány: Econ Engineering</span>
+        </span>
+        <span class="toc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </button>
+
+      <button class="toc-row reveal reveal-5" type="button" data-target="14">
+        <span class="toc-num">07</span>
+        <span class="toc-text">
+          <span class="toc-title">Csapat</span>
+          <span class="toc-sub">12 fős senior csapat &mdash; vezetés, design, fejlesztés</span>
+        </span>
+        <span class="toc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </button>
+
+      <button class="toc-row reveal reveal-5" type="button" data-target="17">
+        <span class="toc-num">08</span>
+        <span class="toc-text">
+          <span class="toc-title">Kapcsolat</span>
+          <span class="toc-sub">Herbszt György &middot; Lőrincz András</span>
+        </span>
+        <span class="toc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 3: ÖNMEGHATÁROZÁS ============ -->
+  <section class="slide" data-slide="3">
+    <div class="slide-tag">03 &mdash; A Sonarról</div>
+
+    <div class="intro-deco reveal reveal-1" aria-hidden="true">
+      <img src="assets/sonar-discovery-lab.png" alt="">
+    </div>
+
+    <div class="intro-slide">
+      <p class="intro-paragraph reveal reveal-2">
+        A Sonar Digital egy növekedési fókuszú innovációs műhely. Hiszünk benne, hogy minden cég többre képes, mint ma. A tudásotokban, a folyamataitokban, és az ügyfeleitekben rejlő értéket szabadítjuk fel. Ügyfélszerzést, terméket, üzemeltetést vagy teljes újratervezést szállítunk a csapatod részeként. A kickoff meetingtől az első fizetős vevőig.
+      </p>
+
+      <div class="role-pills reveal reveal-3">
+        <span class="role-pill">Visionaries</span>
+        <span class="role-pill">Strategists</span>
+        <span class="role-pill">Researchers</span>
+        <span class="role-pill">Designers</span>
+        <span class="role-pill">Architects</span>
+        <span class="role-pill">Developers</span>
+        <span class="role-pill">Marketers</span>
+        <span class="role-pill">Analysts</span>
+        <span class="role-pill">Builders</span>
+        <span class="role-pill">Problem Solvers</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 4: ARS POETICA ============ -->
+  <section class="slide" data-slide="4">
+    <div class="slide-tag">04 &mdash; Ars poetica</div>
+
+    <h2 class="display display-l reveal reveal-1" style="position: absolute; top: 11vh; left: 6vw; z-index: 5;">Ars poetica</h2>
+
+    <div class="ars-stage">
+      <div class="ars-flask-wrap reveal reveal-2">
+        <img class="ars-flask-img" src="assets/ars-flask.png" alt="" loading="lazy">
+        <div class="ars-tag t-uzleti">Üzleti cél</div>
+        <div class="ars-tag t-kivit">Kivitelezés</div>
+        <div class="ars-tag t-ember">Ember-<br>központúság</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 5: SZOLGÁLTATÁSAINK — NÉGY CSOMAG ============ -->
+  <section class="slide" data-slide="5">
+    <div class="slide-tag">05 &mdash; Szolgáltatásaink</div>
+
+    <div class="scope-header reveal reveal-1">
+      <h2 class="display display-l">Szolgáltatásaink</h2>
+      <p class="body-l" style="max-width: 34ch; text-align: right;">Négy csomag, egy csapat &mdash; kutatástól a piacravitelig.</p>
+    </div>
+
+    <div class="services-grid packages">
+      <button class="service-card reveal reveal-2" type="button" data-target="6">
+        <div class="service-card-image">
+          <img src="assets/sonar_growth-lab.avif" alt="" loading="lazy">
+        </div>
+        <div class="service-card-text">
+          <div class="pricing-card-tier">01 &mdash; Üzletszerzés</div>
+          <div class="service-card-title">SELL</div>
+          <div class="service-card-sub">Üzletszerzés, ami akkor is hoz vevőt, ha a kapcsolataid már elapadtak.</div>
+        </div>
+        <span class="service-card-jump">
+          Ugrás
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </span>
+      </button>
+
+      <button class="service-card reveal reveal-3" type="button" data-target="8">
+        <div class="service-card-image">
+          <img src="assets/sonar_software-lab.avif" alt="" loading="lazy">
+        </div>
+        <div class="service-card-text">
+          <div class="pricing-card-tier">02 &mdash; Termékesítés</div>
+          <div class="service-card-title">BUILD</div>
+          <div class="service-card-sub">Termék, ami nem csak működik, de vevője is van.</div>
+        </div>
+        <span class="service-card-jump">
+          Ugrás
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </span>
+      </button>
+
+      <button class="service-card reveal reveal-4" type="button" data-target="10">
+        <div class="service-card-image">
+          <img src="assets/sonar_design-lab.avif" alt="" loading="lazy">
+        </div>
+        <div class="service-card-text">
+          <div class="pricing-card-tier">03 &mdash; Üzemeltetés</div>
+          <div class="service-card-title">OPERATE</div>
+          <div class="service-card-sub">Üzemeltetés, ami nem a csapatot duplázza, hanem rendszert épít.</div>
+        </div>
+        <span class="service-card-jump">
+          Ugrás
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </span>
+      </button>
+
+      <button class="service-card reveal reveal-5" type="button" data-target="12">
+        <div class="service-card-image">
+          <img src="assets/sonar-discovery-lab.png" alt="" loading="lazy">
+        </div>
+        <div class="service-card-text">
+          <div class="pricing-card-tier">04 &mdash; Újratervezés</div>
+          <div class="service-card-title">RETHINK</div>
+          <div class="service-card-sub">Újratervezés, mert a múltad jobb jövőt érdemel.</div>
+        </div>
+        <span class="service-card-jump">
+          Ugrás
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 6: SELL ============ -->
+  <section class="slide" data-slide="6">
+    <div class="slide-tag">06 &mdash; 1. csomag</div>
+
+    <div class="step-header">
+      <div class="step-header-left">
+        <div class="step-header-meta-row reveal reveal-1">
+          <span class="pill">Üzletszerzés</span>
+          <span class="step-header-num">1 / 4</span>
+        </div>
+        <h2 class="step-header-title reveal reveal-2">SELL</h2>
+      </div>
+      <div class="step-header-hours reveal reveal-2">01<span class="unit">csomag</span></div>
+    </div>
+
+    <p class="body-l pkg-lead reveal reveal-2">Üzletszerzés, ami akkor is hoz vevőt, ha a kapcsolataid már elapadtak.</p>
+
+    <div class="step-cols centered">
+      <div class="step-col reveal reveal-3">
+        <h3>Probléma</h3>
+        <ul class="quote-list">
+          <li>„A bevételünk kapcsolatokból jön.”</li>
+          <li>„Nem tudjuk pontosan, kire célozzunk.”</li>
+          <li>„Az ügyfél nem érti, miért jobb a mi termékünk.”</li>
+          <li>„Naptárunk hol tele van, hol üres.”</li>
+        </ul>
+      </div>
+
+      <div class="step-col solution reveal reveal-4">
+        <h3>Megoldás</h3>
+        <ol class="step-list">
+          <li>Értékesítési tapasztalatok, vevői igények és versenytársak alapján új piacokat és szegmenseket azonosítunk, majd új ajánlatokat tervezünk rájuk.</li>
+          <li>Bevezetjük saját volumen vevőszerzési rendszerünket.</li>
+          <li>Új vevőkkel bizonyítjuk az új ajánlatok működőképességét.</li>
+        </ol>
+      </div>
+
+      <div class="step-col result reveal reveal-5">
+        <h3>Mit kapsz a végén?</h3>
+        <ul class="pricing-features">
+          <li>Kutatási riport</li>
+          <li>Piaci opportunity-térkép + új értékajánlatok</li>
+          <li>Testreszabott vevőszerzési szoftver</li>
+          <li>Új potenciális vevők + piacilag validált ajánlatok</li>
+          <li>Sales playbook + működő rendszer</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="image-band-bottom">
+      <img src="assets/gradient-bottom.jpg" alt="" loading="lazy">
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 7: ESETTANULMÁNY — MEDTECH / SELL ============ -->
+  <section class="slide" data-slide="7">
+    <div class="slide-tag">07 &mdash; Esettanulmány</div>
+
+    <div class="case-grid">
+      <div class="case-image reveal reveal-1">
+        <img src="assets/case-medtech.jpg" alt="MedTech &mdash; kiszámítható értékesítési pipeline" loading="lazy">
+      </div>
+
+      <div class="case-text">
+        <div class="reveal reveal-2"><span class="pill">Esettanulmány</span> <span class="pill-outline">SELL</span></div>
+        <h2 class="case-title reveal reveal-3">Kiszámítható pipeline az AI-alapú medtech szoftverhez</h2>
+        <div class="case-body reveal reveal-4">
+          <p>Egy orvostechnológiai ügyfelünk képfeldolgozó és elemző szoftvert fejleszt kutatóknak és diagnosztikai laboroknak.</p>
+          <p>Közösen újrapozícionáltuk a terméket; új értékajánlatot és árazást alakítottunk ki. Piackutatással és ügyfélinterjúkkal 6 különálló ügyfélszegmenst azonosítottunk.</p>
+          <p>Erre építve 200+ szervezet 300+ döntéshozóját céloztuk meg személyre szabott cold outreach-csel.</p>
+        </div>
+
+        <div class="case-stats cols-4 reveal reveal-5">
+          <div class="rate-card">
+            <div class="rate-card-price"><span class="rate-card-num">300+</span></div>
+            <div class="rate-card-role">döntéshozó</div>
+          </div>
+          <div class="rate-card">
+            <div class="rate-card-price"><span class="rate-card-num">17%</span></div>
+            <div class="rate-card-role">válaszarány &mdash; 3&times; iparági átlag</div>
+          </div>
+          <div class="rate-card">
+            <div class="rate-card-price"><span class="rate-card-num">12</span></div>
+            <div class="rate-card-role">demó</div>
+          </div>
+          <div class="rate-card">
+            <div class="rate-card-price"><span class="rate-card-num">4</span></div>
+            <div class="rate-card-role">lezárt üzlet</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 8: BUILD ============ -->
+  <section class="slide" data-slide="8">
+    <div class="slide-tag">08 &mdash; 2. csomag</div>
+
+    <div class="step-header">
+      <div class="step-header-left">
+        <div class="step-header-meta-row reveal reveal-1">
+          <span class="pill">Termékesítés</span>
+          <span class="step-header-num">2 / 4</span>
+        </div>
+        <h2 class="step-header-title reveal reveal-2">BUILD</h2>
+      </div>
+      <div class="step-header-hours reveal reveal-2">02<span class="unit">csomag</span></div>
+    </div>
+
+    <p class="body-l pkg-lead reveal reveal-2">Termék, ami nem csak működik, de vevője is van.</p>
+
+    <div class="step-cols centered">
+      <div class="step-col reveal reveal-3">
+        <h3>Probléma</h3>
+        <ul class="quote-list">
+          <li>„Van egy jó ötletünk. Nem tudjuk, hogyan lesz belőle piaci termék.”</li>
+          <li>„Fejlesztőket béreltünk. Kódot kaptunk, nem terméket.”</li>
+          <li>„A tudásunkat órabérben értékesítjük. Alulárazva.”</li>
+          <li>„A szolgáltatásunk kifulladóban. A csapat túlterhelt.”</li>
+        </ul>
+      </div>
+
+      <div class="step-col solution reveal reveal-4">
+        <h3>Megoldás</h3>
+        <ol class="step-list">
+          <li>Térképet rajzolunk az új igényekből és piaci lehetőségekből.</li>
+          <li>Eladható és működő termékkoncepciót tervezünk.</li>
+          <li>Legyártjuk a terméket.</li>
+        </ol>
+      </div>
+
+      <div class="step-col result reveal reveal-5">
+        <h3>Mit kapsz a végén?</h3>
+        <ul class="pricing-features">
+          <li>Belső és külső kutatási riport</li>
+          <li>Opportunity-térkép + termékesíthető lehetőségek</li>
+          <li>Validált, eladható termékkoncepció</li>
+          <li>Működő termék</li>
+          <li>Termék-kézikönyv + handover</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="image-band-bottom">
+      <img src="assets/gradient-bottom.jpg" alt="" loading="lazy">
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 9: ESETTANULMÁNY — LABTECH / BUILD ============ -->
+  <section class="slide" data-slide="9">
+    <div class="slide-tag">09 &mdash; Esettanulmány</div>
+
+    <div class="case-grid">
+      <!-- TODO: ideiglenes kép — cseréld a végleges Labtech vizuálra (assets/case-labtech.jpg) -->
+      <div class="case-image reveal reveal-1">
+        <img src="assets/sonar_software-lab.avif" alt="Labtech &mdash; EKG diagnosztikai termék" loading="lazy">
+      </div>
+
+      <div class="case-text">
+        <div class="reveal reveal-2"><span class="pill">Esettanulmány</span> <span class="pill-outline">BUILD</span></div>
+        <h2 class="case-title reveal reveal-3">35 éves MedTech termék újjáépítése a globális piacra</h2>
+        <div class="case-body reveal reveal-4">
+          <p>A Labtech 35 éve fejleszt világszínvonalú EKG diagnosztikai technológiát. A legacy kód és a zsúfolt felület azonban elrejti ezt a minőséget.</p>
+          <p>End-to-end újratervezzük és újraépítjük a terméket: piaci mélyelemzéssel, UX-újratervezéssel és modern full-stack fejlesztéssel.</p>
+          <p>A hamarosan élesedő, jövőálló platform hozzáférhetővé teszi a cég algoritmusait és felkészíti a Labtech-et a globális MedTech piacokon való további terjeszkedésre.</p>
+        </div>
+
+        <div class="case-highlights reveal reveal-5">
+          <h3 class="case-highlights-label">Amit szállítottunk</h3>
+          <ul class="scope-list">
+            <li>15&ndash;20 interjú kardiológusokkal, forgalmazókkal, és belső csapatokkal</li>
+            <li>Teljesen testreszabható, lépésről lépésre haladó diagnosztikai felület tervezése</li>
+            <li>Legacy architektúra felváltása modern, offline-képes full-stack platformmal</li>
+            <li>Skálázható, felhasználóközpontú MedTech szoftvertermék</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 10: OPERATE ============ -->
+  <section class="slide" data-slide="10">
+    <div class="slide-tag">10 &mdash; 3. csomag</div>
+
+    <div class="step-header">
+      <div class="step-header-left">
+        <div class="step-header-meta-row reveal reveal-1">
+          <span class="pill">Üzemeltetés</span>
+          <span class="step-header-num">3 / 4</span>
+        </div>
+        <h2 class="step-header-title reveal reveal-2">OPERATE</h2>
+      </div>
+      <div class="step-header-hours reveal reveal-2">03<span class="unit">csomag</span></div>
+    </div>
+
+    <p class="body-l pkg-lead reveal reveal-2">Üzemeltetés, ami nem a csapatot duplázza, hanem rendszert épít.</p>
+
+    <div class="step-cols centered">
+      <div class="step-col reveal reveal-3">
+        <h3>Probléma</h3>
+        <ul class="quote-list">
+          <li>„A csapatunk több időt fordít adminisztrációra, mint érdemi munkára.”</li>
+          <li>„Ahogy növekszünk, mindig több embert kell felvennünk.”</li>
+          <li>„Ha egy kulcsember elmegy, összeomlik a működés.”</li>
+          <li>„Vettünk szoftvereket és bevezettük az AI-t, mégsem lettünk hatékonyabbak.”</li>
+        </ul>
+      </div>
+
+      <div class="step-col solution reveal reveal-4">
+        <h3>Megoldás</h3>
+        <ol class="step-list">
+          <li>Feltérképezzük a folyamataitokat és azonosítjuk a valódi szűk keresztmetszeteket.</li>
+          <li>Újratervezzük a működést és automatizálunk mindent, ami nem igényel emberi mérlegelést.</li>
+          <li>Betanítjuk a csapatot, hogy magabiztosan használja az új rendszert &mdash; és a bevezetés alatt mellettetek maradunk.</li>
+        </ol>
+      </div>
+
+      <div class="step-col result reveal reveal-5">
+        <h3>Mit kapsz a végén?</h3>
+        <ul class="pricing-features">
+          <li>Folyamattérkép + szűk keresztmetszet-diagnózis</li>
+          <li>Rendszerterv (mi automation, mi AI, mi emberi mérlegelés)</li>
+          <li>Testreszabott, működő rendszer</li>
+          <li>Betanított csapat + felhasználói dokumentáció</li>
+          <li>Operációs playbook + skálázható háttérrendszer</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="image-band-bottom">
+      <img src="assets/gradient-bottom.jpg" alt="" loading="lazy">
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 11: ESETTANULMÁNY — KÉK VONAL / OPERATE ============ -->
+  <section class="slide" data-slide="11">
+    <div class="slide-tag">11 &mdash; Esettanulmány</div>
+
+    <div class="case-grid">
+      <!-- TODO: ideiglenes kép — cseréld a végleges Kék Vonal vizuálra (assets/case-kekvonal.jpg) -->
+      <div class="case-image reveal reveal-1">
+        <img src="assets/sonar_growth-lab.avif" alt="Kék Vonal Gyermekkrízis Alapítvány &mdash; önkéntesmenedzsment rendszer" loading="lazy">
+      </div>
+
+      <div class="case-text">
+        <div class="reveal reveal-2"><span class="pill">Esettanulmány</span> <span class="pill-outline">OPERATE</span></div>
+        <h2 class="case-title reveal reveal-3">Több száz óra emberi figyelem, adminisztráció helyett</h2>
+        <div class="case-body reveal reveal-4">
+          <p>A Kék Vonal Gyermekkrízis Alapítványnál az önkéntesmenedzsment egy 200 fős kiválasztási körre eddig 100&ndash;130 óra adminisztrációt jelentett: jelentkezőnként 30&ndash;45 perc dokumentumkezelés, státuszkövetés, hiánypótlás és kommunikáció &mdash; manuálisan.</p>
+          <p>Közösen újratérképeztük a folyamatot, és egy testre szabott CRM-rendszerbe automatizáltunk mindent, ami nem igényel emberi mérlegelést. A rendszer egy működési alap, ami tud együtt nőni a szervezettel.</p>
+          <p>Kevesebb admin, több emberi figyelem &mdash; ott, ahol a legnagyobb szükség van rá.</p>
+        </div>
+
+        <div class="case-stats cols-3 reveal reveal-5">
+          <div class="rate-card">
+            <div class="rate-card-price"><span class="rate-card-num">200+</span></div>
+            <div class="rate-card-role">önkéntes / kiválasztási kör</div>
+          </div>
+          <div class="rate-card">
+            <div class="rate-card-price"><span class="rate-card-num">100&ndash;130</span><span class="rate-card-unit">óra</span></div>
+            <div class="rate-card-role">megtakarítás körönként, szervezeti szinten</div>
+          </div>
+          <div class="rate-card">
+            <div class="rate-card-price"><span class="rate-card-num">50&ndash;80</span><span class="rate-card-unit">óra</span></div>
+            <div class="rate-card-role">visszaszerzett kapacitás munkatársanként</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 12: RETHINK ============ -->
+  <section class="slide" data-slide="12">
+    <div class="slide-tag">12 &mdash; 4. csomag</div>
+
+    <div class="step-header">
+      <div class="step-header-left">
+        <div class="step-header-meta-row reveal reveal-1">
+          <span class="pill">Újratervezés</span>
+          <span class="step-header-num">4 / 4</span>
+        </div>
+        <h2 class="step-header-title reveal reveal-2">RETHINK</h2>
+      </div>
+      <div class="step-header-hours reveal reveal-2">04<span class="unit">csomag</span></div>
+    </div>
+
+    <p class="body-l pkg-lead reveal reveal-2">Újratervezés, mert a múltad jobb jövőt érdemel.</p>
+
+    <div class="step-cols centered">
+      <div class="step-col reveal reveal-3">
+        <h3>Probléma</h3>
+        <ul class="quote-list">
+          <li>„A tudásunk többet ér, mint amennyit kapunk érte.”</li>
+          <li>„Egy piacot szolgálunk ki. Ez a kitettség veszélyes.”</li>
+          <li>„Mindent csinálunk mindenkinek. Nem specializálódtunk.”</li>
+          <li>„A cégünk öt éve ugyanaz. A piac közben átalakult.”</li>
+        </ul>
+      </div>
+
+      <div class="step-col solution reveal reveal-4">
+        <h3>Megoldás</h3>
+        <ol class="step-list">
+          <li>Feltárjuk, hol tud a cégetek a legjobban teljesíteni: mit, kinek, hogyan, és miért.</li>
+          <li>Új üzleti modellt tervezünk: piac, ajánlat, ár, pozíció, és működés együtt.</li>
+          <li>Validáljuk a piacon az új modellt és felkészítjük a szervezetet a bevezetésre.</li>
+        </ol>
+      </div>
+
+      <div class="step-col result reveal reveal-5">
+        <h3>Mit kapsz a végén?</h3>
+        <ul class="pricing-features">
+          <li>Diagnózis + rizikó- és opportunity-térkép</li>
+          <li>Új üzleti modell: piac, ajánlat, ár, pozíció</li>
+          <li>Validált piaci belépés az új irányba</li>
+          <li>Áttervezett cég + roadmap</li>
+          <li>Piaci belépési kézikönyv + felkészített szervezet + handover</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="image-band-bottom">
+      <img src="assets/gradient-bottom.jpg" alt="" loading="lazy">
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 13: ESETTANULMÁNY — ECON ENGINEERING / RETHINK ============ -->
+  <section class="slide" data-slide="13">
+    <div class="slide-tag">13 &mdash; Esettanulmány</div>
+
+    <div class="case-grid">
+      <div class="case-image reveal reveal-1">
+        <img src="assets/case-econ.jpg" alt="Econ Engineering &mdash; F24 szimulációs termék" loading="lazy">
+      </div>
+
+      <div class="case-text">
+        <div class="reveal reveal-2"><span class="pill">Esettanulmány</span> <span class="pill-outline">RETHINK</span></div>
+        <h2 class="case-title reveal reveal-3">Új üzleti modell, amikor a német autóipar gyengül</h2>
+        <div class="case-body reveal reveal-4">
+          <p>Az Econ Engineering egy 20+ éves mérnöki szimulációs szolgáltató. Közösen újratervezzük az üzleti modellt a német autóipari kitettség helyett: 10+ mélyinterjú, 5 workshop, 700+ oldal insight-adatbázis alapján jelöltük ki az új iparágakat, új célcsoportokat és új pozíciót.</p>
+          <p>Az új üzleti modell mellett a világszínvonalú szimulációs tudásukat termékké is csomagoljuk &mdash; piackutatástól UX/UI-on át a full-stack fejlesztésig &mdash; hogy a szolgáltatás mellé önjáró termékbevétel is épüljön.</p>
+          <p>Új pozíció, új piacok, új bevételi forrás. Egy szervezet, több lábon.</p>
+        </div>
+
+        <div class="case-stats cols-3 reveal reveal-5">
+          <div class="rate-card">
+            <div class="rate-card-price"><span class="rate-card-num">10+</span></div>
+            <div class="rate-card-role">mélyinterjú</div>
+          </div>
+          <div class="rate-card">
+            <div class="rate-card-price"><span class="rate-card-num">5</span></div>
+            <div class="rate-card-role">workshop</div>
+          </div>
+          <div class="rate-card">
+            <div class="rate-card-price"><span class="rate-card-num">700+</span><span class="rate-card-unit">oldal</span></div>
+            <div class="rate-card-role">insight-adatbázis</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 14: CSAPAT 1 ============ -->
+  <section class="slide" data-slide="14">
+    <div class="slide-tag">14 &mdash; Csapat</div>
+
+    <div class="team-header reveal reveal-1">
+      <h2 class="display display-l">Csapat</h2>
+    </div>
+
+    <div class="team-grid">
+      <div class="team-card reveal reveal-2">
+        <span class="pill">Team</span>
+        <img class="team-avatar" src="assets/gyuri-avatar.svg" alt="Herbszt György" loading="lazy">
+        <div class="team-name">Herbszt György</div>
+        <div class="team-role">CEO</div>
+        <div class="team-body">
+          <p>20+ év tapasztalat ember-központú terméktervezésben és -fejlesztésben</p>
+          <p>10+ év stratégiai és termékmenedzsment vezetői szerepkörökben</p>
+        </div>
+      </div>
+
+      <div class="team-card reveal reveal-3">
+        <span class="pill">Team</span>
+        <img class="team-avatar" src="assets/team-lorincz.jpg" alt="Lőrincz András" loading="lazy">
+        <div class="team-name">Lőrincz András</div>
+        <div class="team-role">CCO</div>
+        <div class="team-body">
+          <p>10+ év tapasztalat stratégiai tanácsadói és startup mentori tapasztalat</p>
+          <p>5 év tapasztalat operatív és befektetési vezetői szerepkörökben</p>
+        </div>
+      </div>
+
+      <div class="team-card reveal reveal-4">
+        <span class="pill">Team</span>
+        <img class="team-avatar" src="assets/team-kopp.jpg" alt="Kopp Márton" loading="lazy">
+        <div class="team-name">Kopp Márton</div>
+        <div class="team-role">Marketing Manager</div>
+        <div class="team-body">
+          <p>8 év startup és scale-up tapasztalat</p>
+          <p>5 év marketing és growth, a stratégiától a kivitelezésig SaaS, medtech és pénzügyi szektorokban</p>
+        </div>
+      </div>
+
+      <div class="team-card reveal reveal-5">
+        <span class="pill">Team</span>
+        <img class="team-avatar" src="assets/team-haszillo.jpg" alt="Haszilló Veronika" loading="lazy">
+        <div class="team-name">Haszilló Veronika</div>
+        <div class="team-role">Service designer</div>
+        <div class="team-body">
+          <p>9 év tapasztalat IT projektmenedzsment területén</p>
+          <p>9 év tanácsadói és szolgáltatástervezési tapasztalat</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 15: CSAPAT 2 ============ -->
+  <section class="slide" data-slide="15">
+    <div class="slide-tag">15 &mdash; Csapat</div>
+
+    <div class="team-header reveal reveal-1">
+      <h2 class="display display-l">Csapat</h2>
+    </div>
+
+    <div class="team-grid">
+      <div class="team-card reveal reveal-2">
+        <span class="pill">Team</span>
+        <img class="team-avatar" src="assets/team-szanto.jpg" alt="Szántó Judit" loading="lazy">
+        <div class="team-name">Szántó Judit</div>
+        <div class="team-role">Product designer</div>
+        <div class="team-body">
+          <p>8 év product design és 4 év service design tapasztalat a medtech, logisztikai és teleco szektorokból</p>
+          <p>Átfogó eszköztár a kutatástól a UI-kivitelezésig</p>
+        </div>
+      </div>
+
+      <div class="team-card reveal reveal-3">
+        <span class="pill">Team</span>
+        <img class="team-avatar" src="assets/team-baranyas.jpg" alt="Baranyás Bence" loading="lazy">
+        <div class="team-name">Baranyás Bence</div>
+        <div class="team-role">Senior frontend developer</div>
+        <div class="team-body">
+          <p>8+ év tapasztalat frontend fejlesztésben nagyvállalati, kutatói és szabadúszó környezetben</p>
+          <p>React, Angular és modern webes technológiák ismerete</p>
+        </div>
+      </div>
+
+      <div class="team-card reveal reveal-4">
+        <span class="pill">Team</span>
+        <img class="team-avatar" src="assets/team-kosy.jpg" alt="Kósy Gergely" loading="lazy">
+        <div class="team-name">Kósy Gergely</div>
+        <div class="team-role">Medior frontend developer</div>
+        <div class="team-body">
+          <p>8+ év tapasztalat frontend mérnöki és webfejlesztői területen, SaaS és ipari automatizálási szektorokban</p>
+          <p>Szakértői szintű React, Angular és TypeScript ismeret</p>
+        </div>
+      </div>
+
+      <div class="team-card reveal reveal-5">
+        <span class="pill">Team</span>
+        <img class="team-avatar" src="assets/team-hegedus.jpg" alt="Hegedűs Levente" loading="lazy">
+        <div class="team-name">Hegedűs Levente</div>
+        <div class="team-role">Lead frontend developer</div>
+        <div class="team-body">
+          <p>9+ év frontend fejlesztői és 3+ év vezetői tapasztalat</p>
+          <p>React, Redux és modern JS architektúra specialista</p>
+          <p>Több mint 30 mérnök szakmai mentorálása</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 16: CSAPAT 3 ============ -->
+  <section class="slide" data-slide="16">
+    <div class="slide-tag">16 &mdash; Csapat</div>
+
+    <div class="team-header reveal reveal-1">
+      <h2 class="display display-l">Csapat</h2>
+    </div>
+
+    <div class="team-grid">
+      <div class="team-card reveal reveal-2">
+        <span class="pill">Team</span>
+        <img class="team-avatar" src="assets/team-varga.jpg" alt="Varga Attila" loading="lazy">
+        <div class="team-name">Varga Attila</div>
+        <div class="team-role">Senior frontend developer</div>
+        <div class="team-body">
+          <p>9+ év tapasztalat webes, mobil- és szabadúszó projektekben, olyan globális cégeknél, mint az Accenture és a TELUS</p>
+          <p>Frontend, backend (Node.js) és mobilplatformos szaktudás</p>
+        </div>
+      </div>
+
+      <div class="team-card reveal reveal-3">
+        <span class="pill">Team</span>
+        <img class="team-avatar" src="assets/team-nagy.jpg" alt="Nagy Zoltán" loading="lazy">
+        <div class="team-name">Nagy Zoltán</div>
+        <div class="team-role">DevOps Engineer</div>
+        <div class="team-body">
+          <p>6+ év szoftver- és DevOps mérnöki tapasztalat</p>
+          <p>CI/CD és mikroszolgáltatásos szaktudás</p>
+          <p>Mély technikai tudás: C#, Node.js, SQL és Kubernetes</p>
+        </div>
+      </div>
+
+      <div class="team-card reveal reveal-4">
+        <span class="pill">Team</span>
+        <img class="team-avatar" src="assets/team-pasz.jpg" alt="Pász Gergely" loading="lazy">
+        <div class="team-name">Pász Gergely</div>
+        <div class="team-role">Engineering Manager</div>
+        <div class="team-body">
+          <p>15+ év technikai vezetői és mérnöki tapasztalat</p>
+          <p>DevOps transzformáció és CI/CD specialista</p>
+          <p>Fintech, blockchain és public cloud tapasztalat</p>
+        </div>
+      </div>
+
+      <div class="team-card reveal reveal-5">
+        <span class="pill">Team</span>
+        <img class="team-avatar" src="assets/team-mocsar.jpg" alt="Mocsár Kálmán" loading="lazy">
+        <div class="team-name">Mocsár Kálmán</div>
+        <div class="team-role">Senior fullstack developer</div>
+        <div class="team-body">
+          <p>18+ év szoftverfejlesztői és architekturális tapasztalat</p>
+          <p>Skálázható architektúrák tervezésének szakértője</p>
+          <p>Teljes körű szakmai rálátás a fejlesztőtől a senior architektig</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 17: KAPCSOLAT ============ -->
+  <section class="slide" data-slide="17">
+    <div class="slide-tag">17 &mdash; Kapcsolat</div>
+
+    <div class="closing-grid">
+      <div class="closing-left">
+        <h2 class="display display-l reveal reveal-1">Kapcsolat</h2>
+
+        <div class="contact-list">
+          <div class="contact-card reveal reveal-2">
+            <img class="contact-avatar" src="assets/gyuri-avatar.svg" alt="Herbszt György">
+            <div class="contact-info">
+              <div class="contact-name">Herbszt György</div>
+              <div class="contact-role">CEO</div>
+              <div class="contact-meta">
+                <span class="contact-meta-label">e-mail:</span>
+                <a href="mailto:gyorgy.herbszt@sonardigital.io">gyorgy.herbszt@sonardigital.io</a>
+              </div>
+              <div class="contact-meta">
+                <span class="contact-meta-label">tel:</span>
+                <a href="tel:+36202969034">+36&nbsp;20&nbsp;296&nbsp;9034</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-card reveal reveal-3">
+            <img class="contact-avatar" src="assets/andras-avatar.avif" alt="Lőrincz András">
+            <div class="contact-info">
+              <div class="contact-name">Lőrincz András</div>
+              <div class="contact-role">CCO</div>
+              <div class="contact-meta">
+                <span class="contact-meta-label">e-mail:</span>
+                <a href="mailto:andras.lorincz@sonardigital.io">andras.lorincz@sonardigital.io</a>
+              </div>
+              <div class="contact-meta">
+                <span class="contact-meta-label">tel:</span>
+                <a href="tel:+36202969034">+36&nbsp;20&nbsp;296&nbsp;9034</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="closing-image reveal reveal-2">
+        <img src="assets/sonar-astronaut-illustration.png" alt="" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <span class="nav-counter" id="counter">01 / 17</span>
+  <button class="nav-btn" id="prevBtn" aria-label="Előző">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button class="nav-btn" id="nextBtn" aria-label="Következő">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+</div>
+
+<div class="progress">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const counter = document.getElementById('counter');
+  const progressFill = document.getElementById('progressFill');
+  const logoHint = document.getElementById('logoHint');
+  let current = 1;
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function goToSlide(n) {
+    n = Math.max(1, Math.min(total, n));
+    if (n === current) return;
+    slides.forEach(s => s.classList.remove('active'));
+    const next = document.querySelector(`.slide[data-slide="${n}"]`);
+    if (next) next.classList.add('active');
+    current = n;
+    counter.textContent = `${pad(n)} / ${pad(total)}`;
+    progressFill.style.width = `${(n / total) * 100}%`;
+    prevBtn.disabled = n === 1;
+    nextBtn.disabled = n === total;
+    dismissLogoHint();
+  }
+
+  function dismissLogoHint() {
+    if (logoHint) logoHint.classList.add('dismissed');
+  }
+
+  prevBtn.addEventListener('click', () => goToSlide(current - 1));
+  nextBtn.addEventListener('click', () => goToSlide(current + 1));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+      e.preventDefault();
+      goToSlide(current + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      e.preventDefault();
+      goToSlide(current - 1);
+    } else if (e.key === 'Home') {
+      goToSlide(1);
+    } else if (e.key === 'End') {
+      goToSlide(total);
+    } else if (e.key >= '1' && e.key <= '9') {
+      goToSlide(parseInt(e.key));
+    } else if (e.key === '0') {
+      goToSlide(10);
+    }
+  });
+
+  document.querySelectorAll('.toc-row, .service-card').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const n = parseInt(btn.dataset.target, 10);
+      if (!Number.isNaN(n)) goToSlide(n);
+    });
+  });
+
+  document.getElementById('logoBtn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    goToSlide(2);
+  });
+
+  document.getElementById('deck').addEventListener('click', (e) => {
+    if (e.target.closest('button, a, .nav-btn')) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const xRatio = (e.clientX - rect.left) / rect.width;
+    if (xRatio > 0.5) goToSlide(current + 1);
+  });
+
+  progressFill.style.width = `${(1 / total) * 100}%`;
+  counter.textContent = `01 / ${pad(total)}`;
+  prevBtn.disabled = true;
+
+  const logoHintClose = document.getElementById('logoHintClose');
+  if (logoHintClose) logoHintClose.addEventListener('click', dismissLogoHint);
+</script>
+
+</body>
+</html>
