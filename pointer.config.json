@@ -1,0 +1,83 @@
+{
+  "projectType": "slideshow",
+  "css": {
+    "framework": "plain",
+    "designSystem": null,
+    "targetFile": null
+  },
+  "deploy": {
+    "target": "local"
+  },
+  "seo": {
+    "enabled": false,
+    "openGraph": false,
+    "geo": false
+  },
+  "ui": {
+    "fonts": [],
+    "iconSet": null,
+    "colorTokens": {},
+    "sizeTokens": {},
+    "breakpoints": [
+      {
+        "id": "desktop-large",
+        "label": "Desktop L",
+        "icon": "desktop_windows",
+        "min": 1441,
+        "max": null,
+        "previewWidth": 1440
+      },
+      {
+        "id": "desktop",
+        "label": "Desktop",
+        "icon": "computer",
+        "min": 1024,
+        "max": 1440,
+        "previewWidth": 1280
+      },
+      {
+        "id": "tablet",
+        "label": "Tablet",
+        "icon": "tablet_mac",
+        "min": 768,
+        "max": 1023,
+        "previewWidth": 768
+      },
+      {
+        "id": "mobile-l",
+        "label": "Mobile L",
+        "icon": "phone_android",
+        "min": 480,
+        "max": 767,
+        "previewWidth": 480
+      },
+      {
+        "id": "mobile-s",
+        "label": "Mobile S",
+        "icon": "phone_iphone",
+        "min": 0,
+        "max": 479,
+        "previewWidth": 375
+      }
+    ]
+  },
+  "content": {
+    "provider": null,
+    "supabaseUrl": null,
+    "supabaseAnonKey": null,
+    "exportDir": "content"
+  },
+  "build": {
+    "command": "npm run build",
+    "outDir": "dist"
+  },
+  "staticExport": {
+    "outDir": "pointer-export",
+    "cleanOutDir": true,
+    "stripEditorAttrs": true,
+    "seo": true
+  },
+  "codebase": {
+    "storage": "git"
+  }
+}

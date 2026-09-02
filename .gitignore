@@ -4,3 +4,6 @@ _preview.html
 Thumbs.db
 *.log
 .claude/settings.local.json
+
+# Pointer — generated media variants and thumbnails
+.pointer/cache/
