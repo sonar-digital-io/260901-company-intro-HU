@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# PDF-export: 17 lap, egyenként 1920×1080 px.
+# PDF-export: 18 lap, egyenként 1920×1080 px.
 # Használat:  ./export-pdf.sh [kimeneti-fájl]
 #
 # A deck @media print blokkja gondoskodik a lapméretről és arról, hogy a
