@@ -203,6 +203,9 @@
     display: block;
   }
 
+  /* Diák alsó sávval: a tartalomnak helyet hagyunk a sáv fölött */
+  .slide.with-band { padding-bottom: calc(130px + 4vh); }
+
   /* === COVER === */
   .cover { padding: 7vh 6vw 0; }
   .cover-grid {
@@ -222,7 +225,7 @@
   }
   .cover-image {
     position: relative;
-    height: 78vh;
+    height: 72vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -590,7 +593,7 @@
   }
   .ars-flask-wrap {
     position: relative;
-    width: min(92%, calc(78vh * 1.33333));
+    width: min(92%, calc(70vh * 1.33333));
     aspect-ratio: 1920 / 1440;
   }
   .ars-flask-img { width: 100%; height: 100%; object-fit: contain; display: block; }
@@ -1719,6 +1722,7 @@
     .services-grid, .team-grid, .coop-grid, .services-aux-grid { grid-template-columns: 1fr; }
     .aux-card-text { padding-right: 0; }
     .image-band-bottom { height: 80px; }
+    .slide.with-band { padding-bottom: calc(80px + 4vh); }
     .lab-cols { margin-bottom: 90px; }
     .spine-spaces, .spine-flow, .spine-cross { grid-template-columns: 1fr; }
     .spine-space-1, .spine-space-2, .spine-space-3, .cc-mvp, .cc-pivot { grid-column: 1; }
@@ -1864,6 +1868,8 @@
     color: var(--ink-muted);
     margin-left: 0.3rem;
   }
+  /* Csomag-diákon a jobb oldali nagy szám helyén a csomag neve áll */
+  .step-header-hours.pkg-name { letter-spacing: 0.01em; font-variant-numeric: normal; }
 
   /* --- Három hasáb: Kihívás / Megoldás / Eredmény --------------------- */
   .step-cols {
@@ -1871,7 +1877,6 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 3vw;
     align-content: start;
-    margin-bottom: 130px;        /* hely az image-band-nek */
   }
   .step-col h3 {
     font-weight: 500;
@@ -2148,6 +2153,119 @@
     letter-spacing: 0.03em;
   }
 
+  /* --- „Kik vagyunk?" — három állítás, soronként állítás + kifejtés ---- */
+  .creed-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    min-height: 0;
+  }
+  .creed-row {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 5vw;
+    align-items: start;
+    padding: 2.1rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .creed-row:last-child { border-bottom: 1px solid var(--rule); }
+  .creed-title {
+    font-size: clamp(1.5rem, 2.5vw, 2.35rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.018em;
+  }
+  .creed-body { color: var(--ink-muted); font-size: 1rem; line-height: 1.65; }
+  .creed-body p + p { margin-top: 0.9rem; }
+
+  /* --- Csomag-diák: Probléma / Megoldás / Impact kártyaként ------------- */
+  /* A kanonikus .pricing-card kártyát használjuk, ahogy az árazó szekció;
+     az Impact a .featured mint-kiemelt variáns (= az „ajánlott" csomag).   */
+  .pkg-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: stretch;
+    align-content: center;
+    flex: 1;
+    min-height: 0;
+  }
+  .pkg-cards .pricing-card { cursor: default; gap: 1.15rem; }
+  .pkg-cards .pricing-card:hover { border-color: var(--rule); transform: none; }
+  .pkg-cards .pricing-card.featured:hover { border-color: var(--mint); transform: none; }
+
+  .pricing-card.featured {
+    border-color: var(--mint);
+    background: linear-gradient(180deg, rgba(80, 248, 208, 0.07), rgba(255, 255, 255, 0.02));
+    box-shadow: 0 24px 70px -30px rgba(80, 248, 208, 0.4);
+  }
+  .pricing-card.featured .pricing-card-tier { color: var(--mint); }
+
+  /* Impact — mint pontos felsorolás a kiemelt kártyában */
+  .impact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .impact-list li {
+    font-size: 0.95rem;
+    color: var(--ink);
+    line-height: 1.45;
+    padding-left: 1.1rem;
+    position: relative;
+  }
+  .impact-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--mint);
+  }
+
+  /* --- „Mit kapsz a végén?" — szállítandók chipként a kártyák alatt ----- */
+  .deliverables {
+    margin-top: 3vh;
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .deliverables-label {
+    font-weight: 500;
+    color: var(--ink-dim);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .chip-blue {
+    display: inline-block;
+    padding: 0.55em 1.05em;
+    background: var(--blue-deep);
+    border: 1px solid rgba(32, 88, 248, 0.55);
+    color: var(--ink);
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
   /* Esettanulmány — felsorolt szállítandók (metrika helyett) */
   .case-highlights {
     margin-top: auto;
@@ -2286,6 +2404,14 @@
     .step-header-title { font-size: clamp(1.6rem, 6vw, 2.25rem); }
     .step-header-hours { font-size: clamp(1.8rem, 7vw, 2.5rem); }
     .step-cols { grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .slide.with-band { padding-bottom: 8vh; }
+    .creed-list { flex: none; justify-content: flex-start; }
+    .creed-row { grid-template-columns: 1fr; gap: 0.85rem; padding: 1.4rem 0; }
+    .creed-title { font-size: clamp(1.3rem, 5.5vw, 1.8rem); }
+    .pkg-cards { grid-template-columns: 1fr; gap: 1rem; margin-bottom: 1.5rem; flex: none; align-content: start; }
+    .pkg-cards .pricing-card { padding: 1.25rem; }
+    .deliverables { flex-direction: column; gap: 0.9rem; margin-top: 2vh; margin-bottom: 1.5rem; }
+    .chip-blue { font-size: 0.8rem; }
     .step-col.solution, .step-col.result { padding-left: 1rem; }
     .pkg-lead { margin-bottom: 2vh; }
 
@@ -2398,9 +2524,10 @@
       padding: 7vh 6vw 8vh !important;
       overflow: hidden !important;
     }
+    .slide.with-band { padding-bottom: calc(130px + 4vh) !important; }
     .cover { padding: 7vh 6vw 0 !important; }
     .cover-grid { grid-template-columns: 1fr 1.05fr !important; gap: 4vw !important; }
-    .cover-image { height: 78vh !important; }
+    .cover-image { height: 72vh !important; }
     .closing-grid { grid-template-columns: 1fr 1.05fr !important; gap: 4vw !important; }
     .closing-image { height: 70vh !important; }
     .case-grid { grid-template-columns: 0.95fr 1.05fr !important; gap: 4vw !important; }
@@ -2408,8 +2535,10 @@
     .team-grid, .coop-grid { grid-template-columns: repeat(4, 1fr) !important; }
     .services-aux-grid { grid-template-columns: 1fr 1fr !important; }
     .step-header { grid-template-columns: 1fr auto !important; gap: 3vw !important; }
-    .step-cols { grid-template-columns: repeat(3, 1fr) !important; gap: 3vw !important; margin-bottom: 130px !important; }
+    .step-cols { grid-template-columns: repeat(3, 1fr) !important; gap: 3vw !important; }
     .step-cols.centered { align-content: center !important; }
+    .pkg-cards { grid-template-columns: repeat(3, 1fr) !important; }
+    .creed-row { grid-template-columns: 0.8fr 1.2fr !important; gap: 5vw !important; }
     .case-stats.cols-3 { grid-template-columns: repeat(3, 1fr) !important; }
     .case-stats.cols-4 { grid-template-columns: repeat(4, 1fr) !important; }
     .case-stats.cols-5 { grid-template-columns: repeat(5, 1fr) !important; }
@@ -2457,7 +2586,7 @@
 <div class="deck" id="deck">
 
   <!-- ============ SLIDE 1: COVER ============ -->
-  <section class="slide cover active" data-slide="1">
+  <section class="slide cover with-band active" data-slide="1">
     <div class="slide-tag">2026</div>
 
     <div class="cover-grid">
@@ -2495,10 +2624,14 @@
         </div>
       </div>
     </div>
+
+    <div class="image-band-bottom">
+      <img src="assets/gradient-bottom.jpg" alt="" loading="lazy">
+    </div>
   </section>
 
   <!-- ============ SLIDE 2: TABLE OF CONTENTS ============ -->
-  <section class="slide" data-slide="2">
+  <section class="slide with-band" data-slide="2">
     <div class="slide-tag">02 &mdash; Tartalom</div>
 
     <div class="toc-header reveal reveal-1">
@@ -2511,12 +2644,12 @@
         <span class="toc-num">01</span>
         <span class="toc-text">
           <span class="toc-title">A Sonarról</span>
-          <span class="toc-sub">Bemutatkozás &amp; ars poetica &mdash; üzleti cél, kivitelezés, emberközpontúság</span>
+          <span class="toc-sub">Önmeghatározás, kik vagyunk &amp; ars poetica</span>
         </span>
         <span class="toc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
       </button>
 
-      <button class="toc-row reveal reveal-2" type="button" data-target="5">
+      <button class="toc-row reveal reveal-2" type="button" data-target="6">
         <span class="toc-num">02</span>
         <span class="toc-text">
           <span class="toc-title">Szolgáltatásaink</span>
@@ -2525,7 +2658,7 @@
         <span class="toc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
       </button>
 
-      <button class="toc-row reveal reveal-3" type="button" data-target="6">
+      <button class="toc-row reveal reveal-3" type="button" data-target="7">
         <span class="toc-num">03</span>
         <span class="toc-text">
           <span class="toc-title">SELL</span>
@@ -2534,7 +2667,7 @@
         <span class="toc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
       </button>
 
-      <button class="toc-row reveal reveal-3" type="button" data-target="8">
+      <button class="toc-row reveal reveal-3" type="button" data-target="9">
         <span class="toc-num">04</span>
         <span class="toc-text">
           <span class="toc-title">BUILD</span>
@@ -2543,7 +2676,7 @@
         <span class="toc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
       </button>
 
-      <button class="toc-row reveal reveal-4" type="button" data-target="10">
+      <button class="toc-row reveal reveal-4" type="button" data-target="11">
         <span class="toc-num">05</span>
         <span class="toc-text">
           <span class="toc-title">OPERATE</span>
@@ -2552,7 +2685,7 @@
         <span class="toc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
       </button>
 
-      <button class="toc-row reveal reveal-4" type="button" data-target="12">
+      <button class="toc-row reveal reveal-4" type="button" data-target="13">
         <span class="toc-num">06</span>
         <span class="toc-text">
           <span class="toc-title">RETHINK</span>
@@ -2561,7 +2694,7 @@
         <span class="toc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
       </button>
 
-      <button class="toc-row reveal reveal-5" type="button" data-target="14">
+      <button class="toc-row reveal reveal-5" type="button" data-target="15">
         <span class="toc-num">07</span>
         <span class="toc-text">
           <span class="toc-title">Csapat</span>
@@ -2570,7 +2703,7 @@
         <span class="toc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
       </button>
 
-      <button class="toc-row reveal reveal-5" type="button" data-target="17">
+      <button class="toc-row reveal reveal-5" type="button" data-target="18">
         <span class="toc-num">08</span>
         <span class="toc-text">
           <span class="toc-title">Kapcsolat</span>
@@ -2579,10 +2712,14 @@
         <span class="toc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
       </button>
     </div>
+
+    <div class="image-band-bottom">
+      <img src="assets/gradient-bottom.jpg" alt="" loading="lazy">
+    </div>
   </section>
 
   <!-- ============ SLIDE 3: ÖNMEGHATÁROZÁS ============ -->
-  <section class="slide" data-slide="3">
+  <section class="slide with-band" data-slide="3">
     <div class="slide-tag">03 &mdash; A Sonarról</div>
 
     <div class="intro-deco reveal reveal-1" aria-hidden="true">
@@ -2607,11 +2744,54 @@
         <span class="role-pill">Problem Solvers</span>
       </div>
     </div>
+
+    <div class="image-band-bottom">
+      <img src="assets/gradient-bottom.jpg" alt="" loading="lazy">
+    </div>
   </section>
 
-  <!-- ============ SLIDE 4: ARS POETICA ============ -->
-  <section class="slide" data-slide="4">
-    <div class="slide-tag">04 &mdash; Ars poetica</div>
+  <!-- ============ SLIDE 4: KIK VAGYUNK — HÁROM ÁLLÍTÁS ============ -->
+  <section class="slide with-band" data-slide="4">
+    <div class="slide-tag">04 &mdash; Kik vagyunk</div>
+
+    <div class="scope-header reveal reveal-1">
+      <h2 class="display display-l">Kik vagyunk?</h2>
+      <p class="body-l" style="max-width: 32ch; text-align: right;">Három állítás, amit minden projektünk visszaigazol.</p>
+    </div>
+
+    <div class="creed-list">
+      <div class="creed-row reveal reveal-2">
+        <h3 class="creed-title">Innovatívak vagyunk</h3>
+        <div class="creed-body">
+          <p>Stratégák, innovátorok és kivitelezők vagyunk, akik digitális folyamatokat, termékeket és szolgáltatásokat terveznek, építenek meg, támogatják a bevezetést, a piacra jutást és az üzleti növekedést.</p>
+          <p>Folyamatosan feszegetjük a határokat &mdash; új termékekkel, új üzleti modellekkel és automatizált folyamatokkal &mdash;, hogy fenntartható módon skálázhasd a vállalkozásod.</p>
+          <p>A gyakorlati innovációban hiszünk: a megfelelő technológiát alkalmazzuk valós problémák megoldására.</p>
+        </div>
+      </div>
+
+      <div class="creed-row reveal reveal-3">
+        <h3 class="creed-title">Boutique iroda vagyunk</h3>
+        <div class="creed-body">
+          <p>12 fős senior csapattal dolgozunk, ahol minden csapattag egyszerre specialista és generalista. Az erőforrást rugalmasan skálázzuk: a kulcsterületeket házon belül tartjuk, a fejlesztést pedig bevált szakértőkkel bővítjük. Tapasztalatunk több iparágon átível, a medtechtől a fintechen át a kereskedelemig.</p>
+        </div>
+      </div>
+
+      <div class="creed-row reveal reveal-4">
+        <h3 class="creed-title">End-to-end vagyunk</h3>
+        <div class="creed-body">
+          <p>End-to-end megoldásokat szállítunk, a teljes folyamatért felelősséget vállalunk, hogy az ötleted ne csak eljusson a piacra, hanem ott növekedni is tudjon.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="image-band-bottom">
+      <img src="assets/gradient-bottom.jpg" alt="" loading="lazy">
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 5: ARS POETICA ============ -->
+  <section class="slide with-band" data-slide="5">
+    <div class="slide-tag">05 &mdash; Ars poetica</div>
 
     <h2 class="display display-l reveal reveal-1" style="position: absolute; top: 11vh; left: 6vw; z-index: 5;">Ars poetica</h2>
 
@@ -2623,11 +2803,15 @@
         <div class="ars-tag t-ember">Ember-<br>központúság</div>
       </div>
     </div>
+
+    <div class="image-band-bottom">
+      <img src="assets/gradient-bottom.jpg" alt="" loading="lazy">
+    </div>
   </section>
 
-  <!-- ============ SLIDE 5: SZOLGÁLTATÁSAINK — NÉGY CSOMAG ============ -->
-  <section class="slide" data-slide="5">
-    <div class="slide-tag">05 &mdash; Szolgáltatásaink</div>
+  <!-- ============ SLIDE 6: SZOLGÁLTATÁSAINK — NÉGY CSOMAG ============ -->
+  <section class="slide with-band" data-slide="6">
+    <div class="slide-tag">06 &mdash; Szolgáltatásaink</div>
 
     <div class="scope-header reveal reveal-1">
       <h2 class="display display-l">Szolgáltatásaink</h2>
@@ -2635,7 +2819,7 @@
     </div>
 
     <div class="services-grid packages">
-      <button class="service-card reveal reveal-2" type="button" data-target="6">
+      <button class="service-card reveal reveal-2" type="button" data-target="7">
         <div class="service-card-image">
           <img src="assets/sonar_growth-lab.avif" alt="" loading="lazy">
         </div>
@@ -2650,7 +2834,7 @@
         </span>
       </button>
 
-      <button class="service-card reveal reveal-3" type="button" data-target="8">
+      <button class="service-card reveal reveal-3" type="button" data-target="9">
         <div class="service-card-image">
           <img src="assets/sonar_software-lab.avif" alt="" loading="lazy">
         </div>
@@ -2665,7 +2849,7 @@
         </span>
       </button>
 
-      <button class="service-card reveal reveal-4" type="button" data-target="10">
+      <button class="service-card reveal reveal-4" type="button" data-target="11">
         <div class="service-card-image">
           <img src="assets/sonar_design-lab.avif" alt="" loading="lazy">
         </div>
@@ -2680,7 +2864,7 @@
         </span>
       </button>
 
-      <button class="service-card reveal reveal-5" type="button" data-target="12">
+      <button class="service-card reveal reveal-5" type="button" data-target="13">
         <div class="service-card-image">
           <img src="assets/sonar-discovery-lab.png" alt="" loading="lazy">
         </div>
@@ -2695,11 +2879,15 @@
         </span>
       </button>
     </div>
+
+    <div class="image-band-bottom">
+      <img src="assets/gradient-bottom.jpg" alt="" loading="lazy">
+    </div>
   </section>
 
-  <!-- ============ SLIDE 6: SELL ============ -->
-  <section class="slide" data-slide="6">
-    <div class="slide-tag">06 &mdash; 1. csomag</div>
+  <!-- ============ SLIDE 7: SELL ============ -->
+  <section class="slide with-band" data-slide="7">
+    <div class="slide-tag">07 &mdash; 1. csomag</div>
 
     <div class="step-header">
       <div class="step-header-left">
@@ -2707,16 +2895,14 @@
           <span class="pill">Üzletszerzés</span>
           <span class="step-header-num">1 / 4</span>
         </div>
-        <h2 class="step-header-title reveal reveal-2">SELL</h2>
+        <h2 class="step-header-title reveal reveal-2">Üzletszerzés, ami akkor is hoz vevőt,<br>ha a kapcsolataid már elapadtak.</h2>
       </div>
-      <div class="step-header-hours reveal reveal-2">01<span class="unit">csomag</span></div>
+      <div class="step-header-hours pkg-name reveal reveal-2">SELL</div>
     </div>
 
-    <p class="body-l pkg-lead reveal reveal-2">Üzletszerzés, ami akkor is hoz vevőt, ha a kapcsolataid már elapadtak.</p>
-
-    <div class="step-cols centered">
-      <div class="step-col reveal reveal-3">
-        <h3>Probléma</h3>
+    <div class="pkg-cards">
+      <div class="pricing-card reveal reveal-3">
+        <div class="pricing-card-tier">Probléma</div>
         <ul class="quote-list">
           <li>„A bevételünk kapcsolatokból jön.”</li>
           <li>„Nem tudjuk pontosan, kire célozzunk.”</li>
@@ -2725,8 +2911,8 @@
         </ul>
       </div>
 
-      <div class="step-col solution reveal reveal-4">
-        <h3>Megoldás</h3>
+      <div class="pricing-card reveal reveal-4">
+        <div class="pricing-card-tier">Megoldás</div>
         <ol class="step-list">
           <li>Értékesítési tapasztalatok, vevői igények és versenytársak alapján új piacokat és szegmenseket azonosítunk, majd új ajánlatokat tervezünk rájuk.</li>
           <li>Bevezetjük saját volumen vevőszerzési rendszerünket.</li>
@@ -2734,16 +2920,27 @@
         </ol>
       </div>
 
-      <div class="step-col result reveal reveal-5">
-        <h3>Mit kapsz a végén?</h3>
-        <ul class="pricing-features">
-          <li>Kutatási riport</li>
-          <li>Piaci opportunity-térkép + új értékajánlatok</li>
-          <li>Testreszabott vevőszerzési szoftver</li>
-          <li>Új potenciális vevők + piacilag validált ajánlatok</li>
-          <li>Sales playbook + működő rendszer</li>
+      <div class="pricing-card featured reveal reveal-5">
+        <div class="pricing-card-tier">Impact</div>
+        <ul class="impact-list">
+          <li>A vevőszerzés dokumentált, ismételhető működéssé válik.</li>
+          <li>A növekedés nem függ a vezetők személyes kapcsolataitól.</li>
+          <li>Kiszámíthatóbb sales folyamat: tervezhetőbb cash flow, kapacitás és csapatbővítés.</li>
+          <li>Az ügyfeleid értik, kinek szól az ajánlatod és miért érdemes ezt választani.</li>
+          <li>Új piacokon és szegmensekben is növekszik a cég.</li>
         </ul>
       </div>
+    </div>
+
+    <div class="deliverables reveal reveal-6">
+      <div class="deliverables-label">Mit kapsz a végén?</div>
+      <ul class="chip-row">
+        <li class="chip-blue">Kutatási riport</li>
+        <li class="chip-blue">Piaci opportunity-térkép + új értékajánlatok</li>
+        <li class="chip-blue">Testreszabott vevőszerzési szoftver</li>
+        <li class="chip-blue">Új potenciális vevők + piacilag validált ajánlatok</li>
+        <li class="chip-blue">Sales playbook + működő rendszer</li>
+      </ul>
     </div>
 
     <div class="image-band-bottom">
@@ -2751,9 +2948,9 @@
     </div>
   </section>
 
-  <!-- ============ SLIDE 7: ESETTANULMÁNY — MEDTECH / SELL ============ -->
-  <section class="slide" data-slide="7">
-    <div class="slide-tag">07 &mdash; Esettanulmány</div>
+  <!-- ============ SLIDE 8: ESETTANULMÁNY — MEDTECH / SELL ============ -->
+  <section class="slide with-band" data-slide="8">
+    <div class="slide-tag">08 &mdash; Esettanulmány</div>
 
     <div class="case-grid">
       <div class="case-image reveal reveal-1">
@@ -2789,11 +2986,15 @@
         </div>
       </div>
     </div>
+
+    <div class="image-band-bottom">
+      <img src="assets/gradient-bottom.jpg" alt="" loading="lazy">
+    </div>
   </section>
 
-  <!-- ============ SLIDE 8: BUILD ============ -->
-  <section class="slide" data-slide="8">
-    <div class="slide-tag">08 &mdash; 2. csomag</div>
+  <!-- ============ SLIDE 9: BUILD ============ -->
+  <section class="slide with-band" data-slide="9">
+    <div class="slide-tag">09 &mdash; 2. csomag</div>
 
     <div class="step-header">
       <div class="step-header-left">
@@ -2801,16 +3002,14 @@
           <span class="pill">Termékesítés</span>
           <span class="step-header-num">2 / 4</span>
         </div>
-        <h2 class="step-header-title reveal reveal-2">BUILD</h2>
+        <h2 class="step-header-title reveal reveal-2">Termék, ami nem csak működik,<br>de vevője is van.</h2>
       </div>
-      <div class="step-header-hours reveal reveal-2">02<span class="unit">csomag</span></div>
+      <div class="step-header-hours pkg-name reveal reveal-2">BUILD</div>
     </div>
 
-    <p class="body-l pkg-lead reveal reveal-2">Termék, ami nem csak működik, de vevője is van.</p>
-
-    <div class="step-cols centered">
-      <div class="step-col reveal reveal-3">
-        <h3>Probléma</h3>
+    <div class="pkg-cards">
+      <div class="pricing-card reveal reveal-3">
+        <div class="pricing-card-tier">Probléma</div>
         <ul class="quote-list">
           <li>„Van egy jó ötletünk. Nem tudjuk, hogyan lesz belőle piaci termék.”</li>
           <li>„Fejlesztőket béreltünk. Kódot kaptunk, nem terméket.”</li>
@@ -2819,8 +3018,8 @@
         </ul>
       </div>
 
-      <div class="step-col solution reveal reveal-4">
-        <h3>Megoldás</h3>
+      <div class="pricing-card reveal reveal-4">
+        <div class="pricing-card-tier">Megoldás</div>
         <ol class="step-list">
           <li>Térképet rajzolunk az új igényekből és piaci lehetőségekből.</li>
           <li>Eladható és működő termékkoncepciót tervezünk.</li>
@@ -2828,16 +3027,25 @@
         </ol>
       </div>
 
-      <div class="step-col result reveal reveal-5">
-        <h3>Mit kapsz a végén?</h3>
-        <ul class="pricing-features">
-          <li>Belső és külső kutatási riport</li>
-          <li>Opportunity-térkép + termékesíthető lehetőségek</li>
-          <li>Validált, eladható termékkoncepció</li>
-          <li>Működő termék</li>
-          <li>Termék-kézikönyv + handover</li>
+      <div class="pricing-card featured reveal reveal-5">
+        <div class="pricing-card-tier">Impact</div>
+        <ul class="impact-list">
+          <li>A cég tudása termékként is bevételt termel, nem csak emberórákban.</li>
+          <li>A bevétel skálázhatóbb: nem lineárisan függ a csapat kapacitásától.</li>
+          <li>A fejlesztés valós igényekre épül, kevesebb az elpazarolt fejlesztői idő.</li>
         </ul>
       </div>
+    </div>
+
+    <div class="deliverables reveal reveal-6">
+      <div class="deliverables-label">Mit kapsz a végén?</div>
+      <ul class="chip-row">
+        <li class="chip-blue">Belső és külső kutatási riport</li>
+        <li class="chip-blue">Opportunity-térkép + termékesíthető lehetőségek</li>
+        <li class="chip-blue">Validált, eladható termékkoncepció</li>
+        <li class="chip-blue">Működő termék</li>
+        <li class="chip-blue">Termék-kézikönyv + handover</li>
+      </ul>
     </div>
 
     <div class="image-band-bottom">
@@ -2845,9 +3053,9 @@
     </div>
   </section>
 
-  <!-- ============ SLIDE 9: ESETTANULMÁNY — LABTECH / BUILD ============ -->
-  <section class="slide" data-slide="9">
-    <div class="slide-tag">09 &mdash; Esettanulmány</div>
+  <!-- ============ SLIDE 10: ESETTANULMÁNY — LABTECH / BUILD ============ -->
+  <section class="slide with-band" data-slide="10">
+    <div class="slide-tag">10 &mdash; Esettanulmány</div>
 
     <div class="case-grid">
       <!-- TODO: ideiglenes kép — cseréld a végleges Labtech vizuálra (assets/case-labtech.jpg) -->
@@ -2875,11 +3083,15 @@
         </div>
       </div>
     </div>
+
+    <div class="image-band-bottom">
+      <img src="assets/gradient-bottom.jpg" alt="" loading="lazy">
+    </div>
   </section>
 
-  <!-- ============ SLIDE 10: OPERATE ============ -->
-  <section class="slide" data-slide="10">
-    <div class="slide-tag">10 &mdash; 3. csomag</div>
+  <!-- ============ SLIDE 11: OPERATE ============ -->
+  <section class="slide with-band" data-slide="11">
+    <div class="slide-tag">11 &mdash; 3. csomag</div>
 
     <div class="step-header">
       <div class="step-header-left">
@@ -2887,16 +3099,14 @@
           <span class="pill">Üzemeltetés</span>
           <span class="step-header-num">3 / 4</span>
         </div>
-        <h2 class="step-header-title reveal reveal-2">OPERATE</h2>
+        <h2 class="step-header-title reveal reveal-2">Üzemeltetés, ami nem a csapatot duplázza,<br>hanem rendszert épít.</h2>
       </div>
-      <div class="step-header-hours reveal reveal-2">03<span class="unit">csomag</span></div>
+      <div class="step-header-hours pkg-name reveal reveal-2">OPERATE</div>
     </div>
 
-    <p class="body-l pkg-lead reveal reveal-2">Üzemeltetés, ami nem a csapatot duplázza, hanem rendszert épít.</p>
-
-    <div class="step-cols centered">
-      <div class="step-col reveal reveal-3">
-        <h3>Probléma</h3>
+    <div class="pkg-cards">
+      <div class="pricing-card reveal reveal-3">
+        <div class="pricing-card-tier">Probléma</div>
         <ul class="quote-list">
           <li>„A csapatunk több időt fordít adminisztrációra, mint érdemi munkára.”</li>
           <li>„Ahogy növekszünk, mindig több embert kell felvennünk.”</li>
@@ -2905,8 +3115,8 @@
         </ul>
       </div>
 
-      <div class="step-col solution reveal reveal-4">
-        <h3>Megoldás</h3>
+      <div class="pricing-card reveal reveal-4">
+        <div class="pricing-card-tier">Megoldás</div>
         <ol class="step-list">
           <li>Feltérképezzük a folyamataitokat és azonosítjuk a valódi szűk keresztmetszeteket.</li>
           <li>Újratervezzük a működést és automatizálunk mindent, ami nem igényel emberi mérlegelést.</li>
@@ -2914,16 +3124,25 @@
         </ol>
       </div>
 
-      <div class="step-col result reveal reveal-5">
-        <h3>Mit kapsz a végén?</h3>
-        <ul class="pricing-features">
-          <li>Folyamattérkép + szűk keresztmetszet-diagnózis</li>
-          <li>Rendszerterv (mi automation, mi AI, mi emberi mérlegelés)</li>
-          <li>Testreszabott, működő rendszer</li>
-          <li>Betanított csapat + felhasználói dokumentáció</li>
-          <li>Operációs playbook + skálázható háttérrendszer</li>
+      <div class="pricing-card featured reveal reveal-5">
+        <div class="pricing-card-tier">Impact</div>
+        <ul class="impact-list">
+          <li>A szervezet nem tűzolt, hanem tervezhetően működik.</li>
+          <li>A csapat magasabb hozzáadott értékű munkát végez adminisztráció helyett.</li>
+          <li>Több vezetői idő szabadul fel stratégiai munkára.</li>
         </ul>
       </div>
+    </div>
+
+    <div class="deliverables reveal reveal-6">
+      <div class="deliverables-label">Mit kapsz a végén?</div>
+      <ul class="chip-row">
+        <li class="chip-blue">Folyamattérkép + szűk keresztmetszet-diagnózis</li>
+        <li class="chip-blue">Rendszerterv (mi automation, mi AI, mi emberi mérlegelés)</li>
+        <li class="chip-blue">Testreszabott, működő rendszer</li>
+        <li class="chip-blue">Betanított csapat + felhasználói dokumentáció</li>
+        <li class="chip-blue">Operációs playbook + skálázható háttérrendszer</li>
+      </ul>
     </div>
 
     <div class="image-band-bottom">
@@ -2931,9 +3150,9 @@
     </div>
   </section>
 
-  <!-- ============ SLIDE 11: ESETTANULMÁNY — KÉK VONAL / OPERATE ============ -->
-  <section class="slide" data-slide="11">
-    <div class="slide-tag">11 &mdash; Esettanulmány</div>
+  <!-- ============ SLIDE 12: ESETTANULMÁNY — KÉK VONAL / OPERATE ============ -->
+  <section class="slide with-band" data-slide="12">
+    <div class="slide-tag">12 &mdash; Esettanulmány</div>
 
     <div class="case-grid">
       <!-- TODO: ideiglenes kép — cseréld a végleges Kék Vonal vizuálra (assets/case-kekvonal.jpg) -->
@@ -2966,11 +3185,15 @@
         </div>
       </div>
     </div>
+
+    <div class="image-band-bottom">
+      <img src="assets/gradient-bottom.jpg" alt="" loading="lazy">
+    </div>
   </section>
 
-  <!-- ============ SLIDE 12: RETHINK ============ -->
-  <section class="slide" data-slide="12">
-    <div class="slide-tag">12 &mdash; 4. csomag</div>
+  <!-- ============ SLIDE 13: RETHINK ============ -->
+  <section class="slide with-band" data-slide="13">
+    <div class="slide-tag">13 &mdash; 4. csomag</div>
 
     <div class="step-header">
       <div class="step-header-left">
@@ -2978,16 +3201,14 @@
           <span class="pill">Újratervezés</span>
           <span class="step-header-num">4 / 4</span>
         </div>
-        <h2 class="step-header-title reveal reveal-2">RETHINK</h2>
+        <h2 class="step-header-title reveal reveal-2">Újratervezés, mert a múltad<br>jobb jövőt érdemel.</h2>
       </div>
-      <div class="step-header-hours reveal reveal-2">04<span class="unit">csomag</span></div>
+      <div class="step-header-hours pkg-name reveal reveal-2">RETHINK</div>
     </div>
 
-    <p class="body-l pkg-lead reveal reveal-2">Újratervezés, mert a múltad jobb jövőt érdemel.</p>
-
-    <div class="step-cols centered">
-      <div class="step-col reveal reveal-3">
-        <h3>Probléma</h3>
+    <div class="pkg-cards">
+      <div class="pricing-card reveal reveal-3">
+        <div class="pricing-card-tier">Probléma</div>
         <ul class="quote-list">
           <li>„A tudásunk többet ér, mint amennyit kapunk érte.”</li>
           <li>„Egy piacot szolgálunk ki. Ez a kitettség veszélyes.”</li>
@@ -2996,8 +3217,8 @@
         </ul>
       </div>
 
-      <div class="step-col solution reveal reveal-4">
-        <h3>Megoldás</h3>
+      <div class="pricing-card reveal reveal-4">
+        <div class="pricing-card-tier">Megoldás</div>
         <ol class="step-list">
           <li>Feltárjuk, hol tud a cégetek a legjobban teljesíteni: mit, kinek, hogyan, és miért.</li>
           <li>Új üzleti modellt tervezünk: piac, ajánlat, ár, pozíció, és működés együtt.</li>
@@ -3005,16 +3226,25 @@
         </ol>
       </div>
 
-      <div class="step-col result reveal reveal-5">
-        <h3>Mit kapsz a végén?</h3>
-        <ul class="pricing-features">
-          <li>Diagnózis + rizikó- és opportunity-térkép</li>
-          <li>Új üzleti modell: piac, ajánlat, ár, pozíció</li>
-          <li>Validált piaci belépés az új irányba</li>
-          <li>Áttervezett cég + roadmap</li>
-          <li>Piaci belépési kézikönyv + felkészített szervezet + handover</li>
+      <div class="pricing-card featured reveal reveal-5">
+        <div class="pricing-card-tier">Impact</div>
+        <ul class="impact-list">
+          <li>A cég új üzleti modellje a mai piaci helyzetre válaszol.</li>
+          <li>A meglévő tudás magasabb hozzáadott értéken monetizálható.</li>
+          <li>Több piacon és bevételi lábon áll a cég. Csökken a piaci kitettség.</li>
         </ul>
       </div>
+    </div>
+
+    <div class="deliverables reveal reveal-6">
+      <div class="deliverables-label">Mit kapsz a végén?</div>
+      <ul class="chip-row">
+        <li class="chip-blue">Diagnózis + rizikó- és opportunity-térkép</li>
+        <li class="chip-blue">Új üzleti modell: piac, ajánlat, ár, pozíció</li>
+        <li class="chip-blue">Validált piaci belépés az új irányba</li>
+        <li class="chip-blue">Áttervezett cég + roadmap</li>
+        <li class="chip-blue">Piaci belépési kézikönyv + felkészített szervezet + handover</li>
+      </ul>
     </div>
 
     <div class="image-band-bottom">
@@ -3022,9 +3252,9 @@
     </div>
   </section>
 
-  <!-- ============ SLIDE 13: ESETTANULMÁNY — ECON ENGINEERING / RETHINK ============ -->
-  <section class="slide" data-slide="13">
-    <div class="slide-tag">13 &mdash; Esettanulmány</div>
+  <!-- ============ SLIDE 14: ESETTANULMÁNY — ECON ENGINEERING / RETHINK ============ -->
+  <section class="slide with-band" data-slide="14">
+    <div class="slide-tag">14 &mdash; Esettanulmány</div>
 
     <div class="case-grid">
       <div class="case-image reveal reveal-1">
@@ -3056,11 +3286,15 @@
         </div>
       </div>
     </div>
+
+    <div class="image-band-bottom">
+      <img src="assets/gradient-bottom.jpg" alt="" loading="lazy">
+    </div>
   </section>
 
-  <!-- ============ SLIDE 14: CSAPAT 1 ============ -->
-  <section class="slide" data-slide="14">
-    <div class="slide-tag">14 &mdash; Csapat</div>
+  <!-- ============ SLIDE 15: CSAPAT 1 ============ -->
+  <section class="slide with-band" data-slide="15">
+    <div class="slide-tag">15 &mdash; Csapat</div>
 
     <div class="team-header reveal reveal-1">
       <h2 class="display display-l">Csapat</h2>
@@ -3111,11 +3345,15 @@
         </div>
       </div>
     </div>
+
+    <div class="image-band-bottom">
+      <img src="assets/gradient-bottom.jpg" alt="" loading="lazy">
+    </div>
   </section>
 
-  <!-- ============ SLIDE 15: CSAPAT 2 ============ -->
-  <section class="slide" data-slide="15">
-    <div class="slide-tag">15 &mdash; Csapat</div>
+  <!-- ============ SLIDE 16: CSAPAT 2 ============ -->
+  <section class="slide with-band" data-slide="16">
+    <div class="slide-tag">16 &mdash; Csapat</div>
 
     <div class="team-header reveal reveal-1">
       <h2 class="display display-l">Csapat</h2>
@@ -3167,11 +3405,15 @@
         </div>
       </div>
     </div>
+
+    <div class="image-band-bottom">
+      <img src="assets/gradient-bottom.jpg" alt="" loading="lazy">
+    </div>
   </section>
 
-  <!-- ============ SLIDE 16: CSAPAT 3 ============ -->
-  <section class="slide" data-slide="16">
-    <div class="slide-tag">16 &mdash; Csapat</div>
+  <!-- ============ SLIDE 17: CSAPAT 3 ============ -->
+  <section class="slide with-band" data-slide="17">
+    <div class="slide-tag">17 &mdash; Csapat</div>
 
     <div class="team-header reveal reveal-1">
       <h2 class="display display-l">Csapat</h2>
@@ -3225,11 +3467,15 @@
         </div>
       </div>
     </div>
+
+    <div class="image-band-bottom">
+      <img src="assets/gradient-bottom.jpg" alt="" loading="lazy">
+    </div>
   </section>
 
-  <!-- ============ SLIDE 17: KAPCSOLAT ============ -->
-  <section class="slide" data-slide="17">
-    <div class="slide-tag">17 &mdash; Kapcsolat</div>
+  <!-- ============ SLIDE 18: KAPCSOLAT ============ -->
+  <section class="slide with-band" data-slide="18">
+    <div class="slide-tag">18 &mdash; Kapcsolat</div>
 
     <div class="closing-grid">
       <div class="closing-left">
@@ -3273,6 +3519,10 @@
       <div class="closing-image reveal reveal-2">
         <img src="assets/sonar-astronaut-illustration.png" alt="" loading="lazy">
       </div>
+    </div>
+
+    <div class="image-band-bottom">
+      <img src="assets/gradient-bottom.jpg" alt="" loading="lazy">
     </div>
   </section>
 
